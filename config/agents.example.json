@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "mode": "demo",
+  "external_actions": false,
+  "agents": [
+    {
+      "id": "coordinator",
+      "label": "Coordinador",
+      "status": "demo"
+    },
+    {
+      "id": "research",
+      "label": "Investigacion",
+      "status": "demo"
+    },
+    {
+      "id": "documents",
+      "label": "Documentos",
+      "status": "demo"
+    }
+  ]
+}
