@@ -2,6 +2,12 @@
 
 Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza y límites](GOVERNANCE.md).
 
+## Convocatoria internacional / International call
+
+Buscamos colaboradores para investigar una mensajería privada y consentida entre Dots de distintos usuarios. **Es una propuesta, no una integración entre cuentas ya disponible.** Participá con ideas, pruebas o traducciones en la [convocatoria multilingüe](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1), con resúmenes iniciales en 10 idiomas y comentarios bienvenidos en cualquier idioma.
+
+We welcome contributors to research privacy-first, owner-authorized messaging between different users’ Dots. This is a proposal, not a working cross-account integration. Join the [multilingual call for collaborators](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1).
+
 ## Nuevo: taller local útil
 
 Abrí `desktop/tasks.html` (o `http://127.0.0.1:8080/tasks.html` con `npm start`) para convertir una nota en tareas, editar responsables/plazos, marcar avances y descargar Markdown o JSON. Procesamiento determinista local, sin IA ni red. [Guía y límites](docs/TALLER-LOCAL.md). El escritorio de agentes y los ejemplos n8n continúan separados.
