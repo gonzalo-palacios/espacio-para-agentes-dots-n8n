@@ -3,6 +3,9 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const routes=new Map([
+ ['/appearance-core.js',['appearance-core.js','text/javascript']],
+ ['/appearance-ui.js',['appearance-ui.js','text/javascript']],
+ ['/appearance.css',['appearance.css','text/css']],
  ['/', ['index.html','text/html']],['/index.html',['index.html','text/html']],
  ['/map3d/index.html',['map3d/index.html','text/html']],
  ['/map3d/graph.js',['map3d/graph.js','text/javascript']],
