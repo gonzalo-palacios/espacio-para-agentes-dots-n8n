@@ -1,8 +1,19 @@
 # Espacio para Agentes Dots+N8N
 
+Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza y límites](GOVERNANCE.md).
+
+## Nuevo: taller local útil
+
+Abrí `desktop/tasks.html` (o `http://127.0.0.1:8080/tasks.html` con `npm start`) para convertir una nota en tareas, editar responsables/plazos, marcar avances y descargar Markdown o JSON. Procesamiento determinista local, sin IA ni red. [Guía y límites](docs/TALLER-LOCAL.md). El escritorio de agentes y los ejemplos n8n continúan separados.
+
+
 Una primera contribución para quienes quieren **entender y organizar un equipo de agentes** sin empezar entregando credenciales. Escritorio educativo inspirado en interfaces clásicas, con dos ejemplos de n8n ejecutados manualmente y sin IA ni servicios pagos.
 
-**v0.1.0-pre · versión preliminar comunitaria.** No es un producto de Microsoft, OpenAI ni n8n. No crea Dots, no los conecta por sí solo y no incluye agentes ya instalados.
+**v0.2.0-pre · versión preliminar comunitaria.** No es un producto de Microsoft, OpenAI ni n8n. No crea Dots, no los conecta por sí solo y no incluye agentes ya instalados.
+
+## Mapa 3D de ejemplo
+
+Desde el escritorio, abrí **Explorar mapa 3D de ejemplo**. Rotá, acercá, buscá nodos y recorré sus relaciones. Incluye vista 2D y lista textual alternativa. Son datos ficticios, no una conexión a Obsidian ni a agentes reales. [Guía](docs/MAPA-3D.md).
 
 ## Probalo en un minuto
 
@@ -43,7 +54,7 @@ Un campo `confirmed: true` **no autentica al usuario ni constituye autorización
 
 En una instancia propia de prueba, importá uno de los JSON desde **Import from File**. Revisá los tres nodos: inicio manual, datos ficticios y procesamiento. Ejecutalo manualmente y mirá la salida del último nodo. No requiere credenciales. Los flujos están inactivos y no tienen webhooks, horarios, nodos HTTP ni envío de mensajes. Consultá [docs/N8N.md](docs/N8N.md) y anotá la versión de n8n que pruebes.
 
-**Importación en n8n real aún no verificada en esta versión.** Se comprobó sintaxis, estructura y ejecución del código con una simulación del contrato `$input.all()`. No prometemos compatibilidad universal.
+**Importación en n8n real aún no verificada en este candidato.** Se comprobó sintaxis, estructura y ejecución del código con una simulación del contrato `$input.all()`. No prometemos compatibilidad universal.
 
 ## Personalizar sin riesgos
 
@@ -59,7 +70,7 @@ En una instancia propia de prueba, importá uno de los JSON desde **Import from 
 npm test
 ```
 
-44 comprobaciones sin descargar paquetes: lógica de notas, validación, saltos, duplicados del lote, estructura y seguridad de workflows, sintaxis y navegación con DOM simulado. Ver [docs/VALIDACION.md](docs/VALIDACION.md) para límites y pruebas manuales pendientes.
+Suite base de 44 comprobaciones, más pruebas del taller local, rutas, mapa e integración, sin descargar paquetes: lógica de notas, validación, saltos, duplicados del lote, estructura y seguridad de workflows, sintaxis y navegación con DOM simulado. Ver [docs/VALIDACION.md](docs/VALIDACION.md) para límites y pruebas manuales pendientes.
 
 ## Contribuir
 
