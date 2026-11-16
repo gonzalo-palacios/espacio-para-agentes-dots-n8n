@@ -1,0 +1,21 @@
+/* Optional phone-style launcher; all wallpapers are original CSS gradients. */
+.appearance{margin:0 32px 20px;padding:16px;background:#102b39;border:1px solid #426073;border-radius:16px;color:#e7f8ff}
+.appearance summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700}
+.appearance-fields{display:flex;flex-wrap:wrap;gap:16px;align-items:end}
+.appearance label{display:grid;gap:8px}
+.appearance select,.appearance button{min-height:44px;padding:10px 14px;border:1px solid #7896a7;border-radius:10px;background:#153b4b;color:#fff;font:inherit}
+.appearance button{cursor:pointer}
+.appearance :focus-visible,.shortcut:focus-visible{outline:3px solid #ffd27c;outline-offset:4px}
+.appearance p{max-width:75ch;line-height:1.5}
+body[data-wallpaper="sunset"] .desktop{background:radial-gradient(ellipse at 75% 15%,#764f68,transparent 65%),linear-gradient(140deg,#38254c,#162438)}
+body[data-wallpaper="forest"] .desktop{background:radial-gradient(ellipse at 75% 15%,#34645c,transparent 65%),linear-gradient(140deg,#102e2c,#152333)}
+body[data-shape="circle"] .shortcut .symbol{border-radius:50%}
+body[data-shape="square"] .shortcut .symbol{border-radius:4px}
+body[data-shape="rounded"] .shortcut .symbol{border-radius:18px}
+body[data-mode] .shortcut .symbol{width:56px;height:56px;display:grid;place-items:center;margin:8px auto;background:#173e50;color:#fff}
+body[data-mode="phone"] .icons{grid-template-columns:repeat(4,minmax(0,1fr));max-width:520px;margin:auto;gap:16px}
+body[data-mode="phone"] .shortcut{background:#102833b8;min-height:116px;padding:10px 4px;overflow-wrap:anywhere}
+body[data-mode="phone"] .note{margin:28px auto 80px;max-width:520px}
+body[data-mode="phone"] .desktop{padding-top:32px}
+@media(max-width:600px){.appearance{margin:0 12px 16px}.appearance-fields{display:grid;grid-template-columns:1fr}.appearance label,.appearance select{width:100%;box-sizing:border-box}body[data-mode="phone"] .icons{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}body[data-mode="phone"] .desktop{padding:20px 12px}.window{z-index:5}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
