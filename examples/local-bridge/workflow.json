@@ -1,0 +1,55 @@
+{
+  "name": "Dots community · prueba local opt-in",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dots-community-demo",
+        "responseMode": "lastNode",
+        "responseData": "firstEntryJson",
+        "options": {}
+      },
+      "id": "demo-webhook",
+      "name": "Webhook de prueba",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const body = $input.first().json.body;\nif (body?.mode !== 'demo' || body?.text !== 'Comprar papel; Revisar inventario') throw new Error('Solo datos ficticios de la prueba');\nreturn [{json: {mode: 'demo', tasks: body.text.split(';').map(x => ({action: x.trim()}))}}];"
+      },
+      "id": "demo-process",
+      "name": "Procesar datos ficticios",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook de prueba": {
+      "main": [
+        [
+          {
+            "node": "Procesar datos ficticios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
