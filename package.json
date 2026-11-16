@@ -2,10 +2,11 @@
   "name": "agent-desktop-n8n",
   "version": "0.2.0-pre",
   "private": true,
-  "description": "Espacio para Agentes Dots+N8N · plantilla educativa local",
+  "description": "Espacio para Agentes Dots+N8N \u00b7 plantilla educativa local",
   "scripts": {
-    "test": "node tests/run.cjs && node tests/tasks.cjs && node tests/routes.cjs && node tests/map3d.cjs && node tests/integration.cjs",
-    "start": "node src/serve.cjs"
+    "test": "node tests/run.cjs && node tests/tasks.cjs && node tests/routes.cjs && node tests/map3d.cjs && node tests/integration.cjs && node tests/local-bridge.cjs && node tests/local-bridge-http.cjs",
+    "start": "node src/serve.cjs",
+    "n8n:preview": "node src/local-bridge.cjs"
   },
   "engines": {
     "node": ">=22"
