@@ -2,7 +2,7 @@
 
 Propuesta, no compromiso de fechas. Primero utilidad y seguridad; después más funciones.
 
-## Antes de publicar la versión preliminar
+## Estado de la versión preliminar
 
 - [x] Demo local sin cuentas ni llamadas de red.
 - [x] Dos ejemplos manuales n8n inactivos, con datos ficticios.
@@ -10,7 +10,9 @@ Propuesta, no compromiso de fechas. Primero utilidad y seguridad; después más 
 - [ ] Validación visual en navegadores de escritorio y móvil, con teclado.
 - [ ] Importación y ejecución en n8n de prueba; registrar versiones compatibles.
 - [ ] Definir y verificar canal privado para reportes sensibles.
-- [ ] Revisión del paquete final y aprobación de publicación por el propietario.
+- [ ] Revisión del paquete integrado antes de cada actualización pública.
+- [x] Taller local: notas a tareas editables y exportación.
+- [x] Mapa 3D de ejemplo sin conexiones externas.
 
 ## Primeras mejoras para la comunidad
 
