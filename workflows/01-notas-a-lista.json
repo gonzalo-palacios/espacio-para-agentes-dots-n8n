@@ -1,0 +1,74 @@
+{
+  "name": "Agent Desktop · 01-notas-a-lista",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual",
+      "name": "Inicio manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return [{\"json\": {\"text\": \"Comprar papel el martes; Ana confirma el presupuesto; llamar al proveedor\"}}];"
+      },
+      "id": "example",
+      "name": "Datos ficticios",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const items = $input.all();\nreturn items.flatMap(item => {\n  const text = item.json.text;\n  if (typeof text !== 'string' || text.length > 10000) throw new Error('text debe ser texto de hasta 10000 caracteres');\n  const lines = text.split(/[;\\n]+/).map(x => x.trim()).filter(Boolean);\n  return lines.map((action, i) => ({json: {position: i + 1, action, responsible: null, deadline: null, status: 'por revisar', mode: 'demo'}}));\n});"
+      },
+      "id": "process",
+      "name": "Procesar demo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Inicio manual": {
+      "main": [
+        [
+          {
+            "node": "Datos ficticios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos ficticios": {
+      "main": [
+        [
+          {
+            "node": "Procesar demo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
