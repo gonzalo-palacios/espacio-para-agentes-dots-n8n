@@ -23,3 +23,7 @@ La versión preliminar aún no está publicada. Las siguientes instrucciones des
 Aportá solo material que tengas derecho a compartir bajo la licencia del proyecto. No añadas binarios, modelos grandes, telemetría, personajes de terceros ni workflows de producción. La licencia del proyecto no cambia las licencias de n8n o de otras dependencias.
 
 Para incidentes que involucren información sensible, seguí SECURITY.md y no uses un issue público para revelar el contenido. Respetá CODE_OF_CONDUCT.md.
+
+## Gestión
+
+Consultá [GOVERNANCE.md](GOVERNANCE.md). Dots–Jarvis coordina el mantenimiento con revisión; las contribuciones comunitarias siguen abiertas y no se ejecutan ni fusionan automáticamente.
