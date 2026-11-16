@@ -79,3 +79,7 @@ Buscamos que una persona pueda descargarlo, entenderlo y aportar una mejora pequ
 ## Licencias
 
 Código propio: MIT, ver [LICENSE](LICENSE). Fondo reemplazado por gradientes CSS originales, sin recursos del escritorio privado. n8n y los proyectos enlazados tienen licencias independientes; no están incluidos ni relicenciados. Ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Experimento local opt-in (pendiente de revisión)
+
+Cliente CLI de prueba a n8n con datos ficticios fijos; no afecta el escritorio ni los dos workflows manuales. Ver [guía y límites](docs/PUENTE-LOCAL-EXPERIMENTAL.md). No fue importado aún en n8n real.
