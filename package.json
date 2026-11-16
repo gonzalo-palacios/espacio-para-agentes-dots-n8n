@@ -1,0 +1,14 @@
+{
+  "name": "agent-desktop-n8n",
+  "version": "0.1.0-pre",
+  "private": true,
+  "description": "Espacio para Agentes Dots+N8N · plantilla educativa local",
+  "scripts": {
+    "test": "node tests/run.cjs",
+    "start": "node src/serve.cjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
