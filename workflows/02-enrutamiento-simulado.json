@@ -1,0 +1,74 @@
+{
+  "name": "Agent Desktop · 02-enrutamiento-simulado",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual",
+      "name": "Inicio manual",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return [{\"json\": {\"request_id\": \"demo-001\", \"action\": \"delegate\", \"confirmed\": true, \"target\": \"documents\", \"hops\": 0, \"task\": \"Organizar una nota ficticia\"}}, {\"json\": {\"request_id\": \"demo-002\", \"action\": \"status\", \"confirmed\": false, \"target\": \"documents\", \"hops\": 0, \"task\": \"Respondio el coordinador?\"}}];"
+      },
+      "id": "example",
+      "name": "Datos ficticios",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const seen = new Set();\nreturn $input.all().map(item => {\n  const r = item.json;\n  let reason = 'solo simulacion';\n  let result = 'blocked';\n  if (typeof r.request_id !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(r.request_id)) reason = 'identificador invalido';\n  else if (seen.has(r.request_id)) reason = 'duplicado en este lote';\n  else {\n    seen.add(r.request_id);\n    if (r.action !== 'delegate') reason = 'no es delegacion';\n    else if (r.confirmed !== true) reason = 'falta confirmacion de ejemplo';\n    else if (!['research', 'documents'].includes(r.target)) reason = 'destino no permitido';\n    else if (!Number.isInteger(r.hops) || r.hops < 0 || r.hops >= 2) reason = 'limite de saltos';\n    else if (typeof r.task !== 'string' || !r.task.trim() || r.task.length > 2000) reason = 'tarea invalida';\n    else {result = 'simulated'; reason = 'ejemplo validado, no enviado';}\n  }\n  return {json: {request_id: typeof r.request_id === 'string' ? r.request_id.slice(0,64) : null, result, reason, external_action: false}};\n});"
+      },
+      "id": "process",
+      "name": "Procesar demo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Inicio manual": {
+      "main": [
+        [
+          {
+            "node": "Datos ficticios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos ficticios": {
+      "main": [
+        [
+          {
+            "node": "Procesar demo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
