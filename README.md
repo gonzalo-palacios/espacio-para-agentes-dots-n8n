@@ -89,3 +89,7 @@ Código propio: MIT, ver [LICENSE](LICENSE). Fondo reemplazado por gradientes CS
 ## Experimento local opt-in (pendiente de revisión)
 
 Cliente CLI de prueba a n8n con datos ficticios fijos; no afecta el escritorio ni los dos workflows manuales. Ver [guía y límites](docs/PUENTE-LOCAL-EXPERIMENTAL.md). No fue importado aún en n8n real.
+
+## Fallos y consumo
+
+Antes de adaptar esta demo a servicios pagos, leer [fallos y cupos](docs/FALLOS-Y-CUPOS.md). El puente advierte de resultados inciertos y no reintenta automáticamente; el paquete no administra presupuesto real.
