@@ -22,7 +22,7 @@ function extractOffers(input) {
       if (![ ].concat(o['@type'] || []).includes('Offer')) { warnings.push('tipo_oferta_no_soportado'); continue; }
       const offerUrl = safeUrl(o.url);
       const productUrl = safeUrl(p.url) || safeUrl(p['@id']);
-      const sameProduct = (a,b) => { const x=new URL(a), y=new URL(b); return x.hostname.replace(/^www\./,'') === y.hostname.replace(/^www\./,'') && x.pathname.replace(/\/$/,'') === y.pathname.replace(/\/$/,''); };
+      const sameProduct = (a,b) => { const x=parseProvenanceUrl(a), y=parseProvenanceUrl(b); return x.hostname.replace(/^www\./,'') === y.hostname.replace(/^www\./,'') && x.pathname.replace(/\/$/,'') === y.pathname.replace(/\/$/,''); };
       if ([offerUrl,productUrl].filter(Boolean).some(url => !sameProduct(url, source))) { warnings.push('producto_relacionado_excluido'); continue; }
       // Schema.org price uses a decimal point. Locale-formatted display prices are ambiguous.
       const raw = o.price;
@@ -48,15 +48,18 @@ function extractOffers(input) {
   return { status: offers.length ? 'human_review_required' : 'no_supported_offers', offers, warnings,
     purchaseApproved:false, total:null, ranking:null, modelInvoked:false };
 }
-function safeUrl(value) {
-  try {
-    const u = new URL(value);
-    const host = u.hostname.toLowerCase().replace(/\.$/, '');
-    // This validates provenance labels only. NOT an SSRF guard: this module never fetches URLs.
-    if (u.protocol !== 'https:' || u.username || u.password || u.port && u.port !== '443' ||
-        !host.includes('.') || /[:\[\]]/.test(host) || /^\d+(\.\d+){3}$/.test(host) ||
-        /(^|\.)(localhost|local|internal|test|invalid)$/.test(host)) return null;
-    return u.href;
-  } catch { return null; }
+// Deliberately restricted provenance-label grammar, NOT a network/SSRF validator.
+// No global URL or require: stock n8n Code runner does not expose URL.
+function parseProvenanceUrl(value) {
+  if (typeof value !== 'string' || /[\s\\\x00-\x1f\x7f]/.test(value)) return null;
+  const m = /^https:\/\/([^/?#]+)([^]*)$/i.exec(value);
+  if (!m) return null;
+  let host = m[1].toLowerCase().replace(/:443$/, '').replace(/\.$/, '');
+  if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(host) ||
+      /(^|\.)(localhost|local|internal|test|invalid)$/.test(host)) return null;
+  const tail = m[2] || '/';
+  const pathname = tail.split(/[?#]/)[0] || '/';
+  return {hostname:host,pathname,href:'https://'+host+(tail.startsWith('/') ? tail : '/'+tail)};
 }
+function safeUrl(value) { return parseProvenanceUrl(value)?.href || null; }
 module.exports = {extractOffers};
