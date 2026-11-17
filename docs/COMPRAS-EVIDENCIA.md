@@ -4,10 +4,10 @@ Plantilla experimental para ayudar al modelo que ya uses: **no lo reemplaza**, n
 
 ## Estado comprobado
 
-- 17 tests locales, sin red ni API paga, incluyendo ejecución aislada del código exacto de los nodos del JSON.
+- 21 tests locales, sin red ni API paga, incluyendo ejecución aislada del código exacto de los nodos del JSON.
 - Configuración de los cuatro nodos validada contra esquema n8n; esto no sustituye ejecución en servidor.
 - Ejemplo completamente ficticio en dominio reservado example.org; NO es una oferta comercial.
-- No probado de extremo a extremo en un servidor n8n, con comercios reales ni con un modelo.
+- Tres fichas reales Rasasi contrastadas con HTML directo; ver resultados abajo. No probado de extremo a extremo en servidor n8n ni con un modelo.
 - NO desplegado, NO listo para producción. Se publica como borrador para revisión reproducible.
 - No requiere paquetes npm adicionales; las pruebas usan Node.js 22+.
 
@@ -25,7 +25,7 @@ Salida: ofertas con precio numérico, moneda, stock declarado, producto/SKU cuan
 
 El reconocimiento de bloques HTML es ligero, no un parser completo de HTML5. Para sitios reales usar el nodo HTML y fixtures por vendedor antes de confiar en cobertura.
 
-Solo admite Product con Offer inline; no resuelve @id, contextos remotos, AggregateOffer, variantes ProductGroup, HTML visible ni datos renderizados por JavaScript. Un campo ausente no se transforma en cero. Separadores locales ambiguos no se adivinan. Las etiquetas script se usan como contenedor de JSON y nunca se ejecutan. JSON-LD puede estar desactualizado o discrepar de lo visible.
+Admite Product directo, dentro de @graph o WebPage.mainEntity, con Offer inline; excluye por defecto ofertas con Offer.url o Product.url/@id de otra ficha (productos relacionados). Normaliza www y slash final solo para comparar etiquetas, nunca para acceso de red. No garantiza identidad entre variantes que usan query string; esa revisión sigue pendiente. Solo admite este subconjunto; no resuelve @id, contextos remotos, AggregateOffer, variantes ProductGroup, HTML visible ni datos renderizados por JavaScript. Un campo ausente no se transforma en cero. Separadores locales ambiguos no se adivinan. Las etiquetas script se usan como contenedor de JSON y nunca se ejecutan. JSON-LD puede estar desactualizado o discrepar de lo visible.
 
 ## Integración recomendada, todavía NO implementada
 
@@ -55,3 +55,31 @@ Usar un conjunto pequeño de páginas públicas autorizadas: oferta en stock, si
 - Una futura llamada al modelo actual sigue siendo paga conforme a su proveedor. Más texto de evidencia puede aumentar tokens; mantener límites y presupuesto explícitos. Esta plantilla no conoce ni modifica cupos de otros sistemas.
 
 Fuentes técnicas: [HTML n8n](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.html/), [HTTP Request n8n](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/), [Schema.org Offer](https://schema.org/Offer), [Crawl4AI sin LLM](https://docs.crawl4ai.com/extraction/no-llm-strategies/).
+
+
+## Validación pública de adquisición y extracción (17-11-2026 UTC)
+
+Se hicieron GET HTTPS anónimos de URLs concretas, sin cookies, sin seguir redirecciones, con tiempo y tamaño máximos. Luego se ejecutó el extractor local sobre las respuestas completas, y se contrastó con texto HTML sin scripts y lectura de la ficha. No se hizo compra ni inferencia. Los precios son evidencia de una captura, no garantía de vigencia, autenticidad, entrega ni recomendación comercial.
+
+### Rasasi: tres fichas reales
+
+- [Perfumarte: Hawas Black 100 ml](https://www.perfumarte.ar/productos/hawas-black-rasasi-100ml-1nm6w/). Captura directa aproximadamente 22:20 UTC: JSON-LD ARS137500, InStock, coincide con texto de producto. Texto también ofrece ARS110000 por efectivo/transferencia, no extraído automáticamente. La lectura indexada mostró ARS123750/99000 de una promoción anterior: discrepancia entre capturas registrada, no usada como menor precio. Envío específico y costo final no calculados.
+- [JFperfumes: Hawas Kobra 100 ml](https://jfperfumesaltagracia.mitiendanube.com/productos/rasasi-hawas-kobra-100ml-meriq/). JSON-LD ARS78632.50 y OutOfStock, coinciden con texto. Transferencia ARS70769.25 visible; no equivale a precio en cuotas. Se excluye de opciones disponibles. Costo de envío no calculado.
+- [Catálogo Mayorista Perfumería Córdoba: Hawas for Him 100 ml](https://perfumeriacordobamayorist.mitiendanube.com/productos/rasasi-hawas-for-him-edp-100ml/). Captura aproximadamente 22:22 UTC: USD29 e InStock, texto con mismo precio y aviso de última unidad. No convertir a ARS sin tipo de cambio/condición del vendedor. Su banner de envío gratis expresa un umbral USD250000 inconsistente con la oferta: no se acepta como envío gratis. Condiciones mayoristas, costo final y entrega concreta pendientes.
+
+No se ordenan por precio: son variantes distintas, monedas distintas y una no tiene stock. No se certifica originalidad del producto ni del vendedor.
+
+### Defecto encontrado y corregido mediante prueba real
+
+El primer prototipo omitía WebPage.mainEntity y devolvía productos relacionados en Tiendanube. La prueba real detectó esa falsa cobertura; ahora se recupera el producto principal y se excluyen URLs de otras fichas. Cuatro regresiones sintéticas adicionales elevan la suite a 21. También se verifica Product.url/@id; sin URL de identidad no se inventa una URL de oferta y se marca identidad desconocida. Los tres archivos HTML completos se usaron localmente para comprobar el fix, no se publican ni se incluyen datos de sesión. El filtro no resuelve todos los casos de variantes, canonical/URLs relativas ni JavaScript.
+
+### Cobertura adicional y bloqueos
+
+- Adafruit Raspberry Pi5 8GB: captura JSON-LD USD200/InStock consistente con texto visible; sin validación de envío ni compra.
+- StarTech USB31000S: JSON-LD USD35.86/InStock, pero precio/stock no presentes en texto HTML visible capturado; quedan sin corroborar.
+- CyberPower CP900EPFCLCD: no ofertas compatibles; no se inventó precio. La página sirve como ficha técnica, no oferta de venta.
+- GMKtec y Portobello: descarga excede 1000000 bytes; se detuvo y no se analizó contenido parcial ni se elevó el límite.
+- Suits: respuesta upstream connection failure; descartada, sin evasión ni reintentos automáticos.
+- EssenZ: lector público sin líneas; Fylax ruta probada devuelve404. No se atribuyen precios actuales a esas fuentes.
+
+No hay runtime n8n instalado en el entorno aislado de esta prueba: importación/ejecución real queda pendiente. No se utilizó una instancia de producción para sustituirla. La plantilla sigue en borrador.
