@@ -13,12 +13,17 @@ function extractOffers(input) {
     if (Array.isArray(x)) { x.forEach(v => visit(v, depth + 1)); return; }
     if ([].concat(x['@type'] || []).includes('Product')) products.push(x);
     if (x['@graph']) visit(x['@graph'], depth + 1);
+    if (x.mainEntity) visit(x.mainEntity, depth + 1);
   }
   for (const block of blocks) { try { visit(JSON.parse(block[2])); } catch { warnings.push('json_ld_invalido'); } }
   for (const p of products) {
     for (const o of [].concat(p.offers || [])) {
       if (!o || typeof o !== 'object') continue;
       if (![ ].concat(o['@type'] || []).includes('Offer')) { warnings.push('tipo_oferta_no_soportado'); continue; }
+      const offerUrl = safeUrl(o.url);
+      const productUrl = safeUrl(p.url) || safeUrl(p['@id']);
+      const sameProduct = (a,b) => { const x=new URL(a), y=new URL(b); return x.hostname.replace(/^www\./,'') === y.hostname.replace(/^www\./,'') && x.pathname.replace(/\/$/,'') === y.pathname.replace(/\/$/,''); };
+      if ([offerUrl,productUrl].filter(Boolean).some(url => !sameProduct(url, source))) { warnings.push('producto_relacionado_excluido'); continue; }
       // Schema.org price uses a decimal point. Locale-formatted display prices are ambiguous.
       const raw = o.price;
       const amount = (typeof raw === 'number' || typeof raw === 'string' && /^\d+(\.\d+)?$/.test(raw)) ? Number(raw) : null;
@@ -27,13 +32,14 @@ function extractOffers(input) {
       const availabilityRaw = typeof o.availability === 'string' ? o.availability : null;
       const availability = /^https?:\/\/schema\.org\/(InStock|OutOfStock|SoldOut|PreOrder|PreSale|BackOrder|Discontinued|LimitedAvailability|OnlineOnly|InStoreOnly)$/.test(availabilityRaw || '') ? availabilityRaw : null;
       const missing = [];
+      if (!offerUrl && !productUrl) missing.push('identidad_de_ficha_sin_url');
       if (price === null) missing.push('precio_contado_no_verificado');
       if (!currency) missing.push('moneda');
       if (!availability) missing.push('stock');
       offers.push({ product: typeof p.name === 'string' ? p.name : null, sku: typeof p.sku === 'string' ? p.sku : null,
         seller: typeof o.seller?.name === 'string' ? o.seller.name : null,
         price, priceRaw: raw ?? null, currency, availability, availabilityRaw,
-        offerUrl: safeUrl(o.url) || source, sourceUrl: source, observedAt: input.observedAt,
+        offerUrl: offerUrl || productUrl || null, identityStatus: offerUrl || productUrl ? 'url_matches_page' : 'unknown', sourceUrl: source, observedAt: input.observedAt,
         evidence: {type:'publisher_json_ld', independentlyVerified:false},
         missing: [...missing,'variante_y_condiciones_de_pago','envio_e_impuestos','requisitos_tecnicos'],
         status:'human_review_required', purchaseApproved:false });
