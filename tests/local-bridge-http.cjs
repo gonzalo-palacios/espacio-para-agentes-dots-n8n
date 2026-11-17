@@ -55,7 +55,7 @@ async function withServer(handler, test) {
     res.writeHead(302, {Location: '/redirect-target'});
     res.end();
   }, async port => {
-    await assert.rejects(send({confirm: true, port}), TypeError);
+    await assert.rejects(send({confirm: true, port}), /resultado desconocido/);
     assert.equal(redirectRequests, 1);
     assert.equal(targetRequests, 0, 'fetch must not follow the redirect');
   });
@@ -64,7 +64,7 @@ async function withServer(handler, test) {
   let timeoutRequests = 0;
   await withServer((_req, _res) => { timeoutRequests++; }, async port => {
     const start = performance.now();
-    await assert.rejects(send({confirm: true, port}), {name: 'TimeoutError'});
+    await assert.rejects(send({confirm: true, port}), /resultado desconocido/);
     const elapsed = performance.now() - start;
     assert.equal(timeoutRequests, 1);
     assert.ok(elapsed >= 4500, `timeout fired too early: ${elapsed}ms`);
