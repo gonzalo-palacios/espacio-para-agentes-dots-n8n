@@ -19,3 +19,18 @@ await assert.rejects(bridge.send({confirm:true,transport:async()=>new Response(b
 await assert.rejects(bridge.send({confirm:true,transport:async()=>new Response('private error',{status:500})}),/HTTP 500/);
 console.log('local bridge checks PASS');
 })().catch(e=>{console.error(e);process.exitCode=1;});
+
+// Una caída de transporte no acredita que el servidor no procesó el pedido.
+(async()=>{
+ for(const code of ['EAI_AGAIN','ECONNRESET','ETIMEDOUT']) {
+  let attempts=0;
+  await assert.rejects(bridge.send({confirm:true,transport:async()=>{
+   attempts++; throw Object.assign(new Error('PRIVATE_TRANSPORT_DETAILS'),{code});
+  }}),e=>e.message.includes('resultado desconocido')&&!e.message.includes('PRIVATE_TRANSPORT_DETAILS'));
+  assert.equal(attempts,1,'No repetir una solicitud con resultado incierto');
+ }
+ await assert.rejects(bridge.send({confirm:true,transport:async()=>new Response(new ReadableStream({
+  start(controller){controller.error(new Error('PRIVATE_BODY_DETAILS'));}
+ }))}),e=>e.message.includes('resultado desconocido')&&!e.message.includes('PRIVATE_BODY_DETAILS'));
+ console.log('transport uncertainty checks PASS');
+})().catch(e=>{console.error(e);process.exitCode=1;});
