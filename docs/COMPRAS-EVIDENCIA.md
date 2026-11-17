@@ -4,10 +4,10 @@ Plantilla experimental para ayudar al modelo que ya uses: **no lo reemplaza**, n
 
 ## Estado comprobado
 
-- 21 tests locales, sin red ni API paga, incluyendo ejecución aislada del código exacto de los nodos del JSON.
+- 22 tests locales, sin red ni API paga, incluyendo ejecución aislada del código exacto de los nodos del JSON.
 - Configuración de los cuatro nodos validada contra esquema n8n; esto no sustituye ejecución en servidor.
 - Ejemplo completamente ficticio en dominio reservado example.org; NO es una oferta comercial.
-- Tres fichas reales Rasasi contrastadas con HTML directo; ver resultados abajo. No probado de extremo a extremo en servidor n8n ni con un modelo.
+- Tres fichas reales Rasasi contrastadas con HTML directo; ver resultados abajo. Ruta manual y llamada de subflujo JSON inline probadas con n8n2.48.4 aislado, sin modelo ni producción.
 - NO desplegado, NO listo para producción. Se publica como borrador para revisión reproducible.
 - No requiere paquetes npm adicionales; las pruebas usan Node.js 22+.
 
@@ -82,4 +82,22 @@ El primer prototipo omitía WebPage.mainEntity y devolvía productos relacionado
 - Suits: respuesta upstream connection failure; descartada, sin evasión ni reintentos automáticos.
 - EssenZ: lector público sin líneas; Fylax ruta probada devuelve404. No se atribuyen precios actuales a esas fuentes.
 
-No hay runtime n8n instalado en el entorno aislado de esta prueba: importación/ejecución real queda pendiente. No se utilizó una instancia de producción para sustituirla. La plantilla sigue en borrador.
+Se instaló n8n2.48.4 desde npm en un entorno de laboratorio separado, sin credenciales heredadas ni servidor público. Se comprobó importación; ruta manual en copia sin el segundo trigger; y padre→Execute Workflow (fuente Parameter/JSON inline)→Entrada subflujo→Code. La ruta por ID de workflow publicado en base de datos NO quedó probada: el nuevo CLI difiere la activación hasta iniciar un servicio, que no se levantó. El JSON público sigue inactivo y la plantilla sigue en borrador, no desplegada en producción. La ejecución CLI directa del JSON con dos triggers toma entrada de subflujo sin datos y falla validación de html; usar fixture manual o llamador con entrada explícita.
+
+
+### Compatibilidad del runner n8n
+
+La prueba real detectó que el Code runner no expone la global JavaScript URL, aunque el harness inicial sí la inyectaba. Se reemplazó por una gramática de etiquetas HTTPS/DNS restringida, sin require ni nuevas autorizaciones. El test VM ya no inyecta URL. No es un parser URL universal: rechaza, entre otros, IPs, nombres IDN sin punycode, credenciales, protocolos distintos y espacios/backslashes. Sigue sin ser protección SSRF.
+
+Tiempos medidos laboratorio: importación inicial6.917s; ejecución manual corregida4.446s de CLI; padre inline4.681s de CLI (1.357s de ejecución reportada). No son tiempos de búsqueda comercial ni de inferencia.
+
+
+### Replay real n8n y segunda búsqueda
+
+n8n2.48.4 aislado ejecutó también las tres capturas originales mediante padre→subflujo JSON inline:5.081s de CLI,1.836s de ejecución. Resultado: una oferta objetivo por tienda, precios/stock anteriores correctos,2/8/6 relacionados excluidos; purchaseApproved=false,modelInvoked=false,total/ranking=null. Al cerrar: cero workflows activos, cero procesos Node del laboratorio y ningún listener del broker. No se desplegó en VPS ni se ejecutó un agente con modelo.
+
+Después se repitió la misma consulta pública y se descargaron de nuevo las mismas tres fichas aproximadamente22:33 UTC. Sin cambios en producto, URL, precio base, moneda ni stock declarado. Descuentos por transferencia también siguen110000ARS y70769.25ARS en las dos fichas correspondientes; se cotejaron como condiciones separadas, no como precio de cuotas. Envío y autenticidad continúan pendientes.
+
+Tiempos medidos segunda ronda: búsqueda3.219s; adquisición/extracción/cotejo textual20.387s, de los cuales7.876s corresponden a tres descargas y16.697ms al extractor. No hay cronómetro global fiable para la primera ronda: no se afirma mejora de velocidad. Estos tiempos excluyen instalación, pruebas n8n, publicación y preparación del informe.
+
+Comparación controlada sobre los mismos HTML: la versión inicial devolvía16 relacionados y omitía los3 productos objetivo; corregida devuelve los3 objetivos y excluye16 relacionados. Esto mide el defecto del extractor inicial, no errores de la primera lista final revisada, ni calidad de un modelo. La plantilla no proporciona scraping universal, no comprueba inventario en checkout y sigue requiriendo revisión humana.
