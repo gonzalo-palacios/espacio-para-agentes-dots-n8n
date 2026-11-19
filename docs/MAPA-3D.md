@@ -13,7 +13,7 @@ Proyección perspectiva en Canvas 2D de posiciones tridimensionales. Rotación, 
 
 ## Verificación
 `node tests/map3d.cjs` comprueba datos, enlaces, búsqueda y proyección; `node --check desktop/map3d/view.js` verifica sintaxis.
-La captura de Chromium no pudo ejecutarse en este entorno por restricción de sockets; no se afirma validación visual ni prueba real con lector de pantalla.
+En la validación inicial, la captura de Chromium no pudo ejecutarse por restricción de sockets. La comprobación visual posterior tiene el alcance acotado que se describe al final; no se afirma prueba real con lector de pantalla.
 
 ## Exploración enfocada
 - Arrastre con un dedo o botón principal: orbitar en 3D. En 2D: desplazar.
