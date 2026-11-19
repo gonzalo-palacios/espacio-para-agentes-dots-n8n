@@ -6,8 +6,10 @@ Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza
 
 **Prueba de unos 2 minutos en una computadora.** No necesitás cuenta de ChatGPT, Dots, n8n, Node.js ni claves API para esta ruta.
 
-1. En este repositorio, pulsá **Code → Download ZIP**. Descomprimí el ZIP completo; no abras el HTML dentro del archivo comprimido.
-2. En la carpeta descomprimida, abrí **`desktop/tasks.html`** con tu navegador. Conservá los archivos vecinos `tasks-core.js` y `tasks-ui.js`.
+**[⬇ Descargar taller local (ZIP · versión preliminar)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/taller-v0.1.0-pre/taller-local-v0.1.0-pre.zip)**
+
+1. Descargá el taller con el enlace anterior y descomprimí el ZIP completo; no abras el HTML dentro del archivo comprimido.
+2. Abrí **`taller-local/tasks.html`** con tu navegador. Conservá los archivos vecinos `tasks-core.js` y `tasks-ui.js`. El ZIP incluye instrucciones y licencia.
 3. Pegá este ejemplo ficticio y pulsá **Crear lista**:
 
    `Comprar papel; Revisar presupuesto`
@@ -36,8 +38,8 @@ Desde el escritorio, abrí **Explorar mapa 3D de ejemplo**. Rotá, acercá, busc
 
 ## Recorrido simulado del escritorio (opcional)
 
-1. Usá la misma carpeta descomprimida.
-2. Abrí `desktop/index.html` con tu navegador.
+1. Para el escritorio completo, usá **Code → Download ZIP** en este repositorio y descomprimilo. Es una descarga distinta del taller independiente.
+2. Abrí `desktop/index.html` de esa carpeta con tu navegador.
 3. Abrí **Conexiones → Simular recorrido**. No salen pedidos reales ni se usan APIs.
 
 No hace falta instalar nada para esta demo. Para servirla localmente, con Node.js 22 o superior instalado:
