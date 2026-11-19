@@ -14,3 +14,15 @@ Proyección perspectiva en Canvas 2D de posiciones tridimensionales. Rotación, 
 ## Verificación
 `node tests/map3d.cjs` comprueba datos, enlaces, búsqueda y proyección; `node --check desktop/map3d/view.js` verifica sintaxis.
 La captura de Chromium no pudo ejecutarse en este entorno por restricción de sockets; no se afirma validación visual ni prueba real con lector de pantalla.
+
+## Exploración enfocada
+- Arrastre con un dedo o botón principal: orbitar en 3D. En 2D: desplazar.
+- Shift + arrastre o Shift + flechas: desplazar. Flechas: orbitar (desplazar en 2D).
+- Rueda, botones +/− o teclado +/−: zoom acotado. No hay pellizco multitáctil; los botones son la alternativa táctil.
+- Seleccionar desde el mapa o lista centra el nodo y atenúa relaciones ajenas. Los botones de vecinos permiten continuar el recorrido.
+- La búsqueda filtra la lista, pero conserva el contexto del mapa. El nodo Notas a tareas abre el taller local.
+- Restablecer vista (tecla Inicio con foco en el mapa) recupera toda la escena y limpia búsqueda/selección.
+
+Estética HUD original en azul noche, cian y ámbar. Sin logos, recursos de películas, dependencias, movimiento automático ni telemetría. La vista permanece estática con movimiento reducido. La lista y controles siguen disponibles sin arrastrar.
+
+`node tests/map-interaction.cjs`: regresiones de selección/centrado, contexto de búsqueda, vecinos y taller, arrastre 2D, umbral acumulado, cancelación, punteros secundarios, teclado, reset y zoom. Usa DOM/Canvas simulados: no reemplaza pruebas manuales en navegador, móvil o lector de pantalla. Antes de aprobar visualmente, verificar estas interacciones y foco de teclado en el dispositivo destino.
