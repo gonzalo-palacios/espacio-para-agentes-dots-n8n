@@ -18,7 +18,7 @@ Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza
 
 **Resultado:** una lista que podés editar y llevar a tu editor de notas. No se ejecutan las tareas ni se contacta a nadie. El procesamiento es local y determinista, sin IA ni telemetría. **Al cerrar o recargar se pierde la lista: descargala antes.** Usá datos ficticios en esta primera prueba.
 
-Si ves el código en vez de la página, abrí el archivo con un navegador. Si los botones no responden, comprobá que descomprimiste toda la carpeta; la [guía del taller](docs/TALLER-LOCAL.md) también ofrece un servidor local opcional. La interacción completa en navegadores reales sigue pendiente de validación; no prometemos compatibilidad universal.
+Si ves el código en vez de la página, abrí el archivo con un navegador. Si los botones no responden, comprobá que descomprimiste toda la carpeta; la [guía del taller](docs/TALLER-LOCAL.md) también ofrece un servidor local opcional. Verificado en navegador de escritorio cloud, sirviendo localmente el ZIP exacto descomprimido: se crearon las dos tareas, se marcó una y el Markdown descargado conservó exactamente `[x]` y `[ ]`. No se probó en Windows ni abriendo con `file://`; no prometemos compatibilidad universal.
 
 ### ¿Te sirvió? Contarlo es opcional
 
