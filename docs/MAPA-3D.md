@@ -26,3 +26,6 @@ La captura de Chromium no pudo ejecutarse en este entorno por restricción de so
 Estética HUD original en azul noche, cian y ámbar. Sin logos, recursos de películas, dependencias, movimiento automático ni telemetría. La vista permanece estática con movimiento reducido. La lista y controles siguen disponibles sin arrastrar.
 
 `node tests/map-interaction.cjs`: regresiones de selección/centrado, contexto de búsqueda, vecinos y taller, arrastre 2D, umbral acumulado, cancelación, punteros secundarios, teclado, reset y zoom. Usa DOM/Canvas simulados: no reemplaza pruebas manuales en navegador, móvil o lector de pantalla. Antes de aprobar visualmente, verificar estas interacciones y foco de teclado en el dispositivo destino.
+
+## Verificación visual de esta revisión
+Verificado por revisión visual en navegador cloud de escritorio: el mapa renderiza, se pueden seleccionar Notas a tareas y Jarvis, se muestran sus vínculos relacionados y funciona el botón Vista 2D. Se ejercitó el arrastre, pero no se realizó una comprobación visual independiente de su resultado. Quedan pendientes verificación visual del arrastre, móvil, lector de pantalla y apertura directa con `file://`. Las pruebas automatizadas con DOM simulado no sustituyen esas comprobaciones. Esta revisión no implica publicación ni despliegue del Espacio.
