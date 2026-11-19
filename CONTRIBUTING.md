@@ -2,7 +2,7 @@
 
 Esta es una primera contribución: si una persona la descarga y le sirve, ya cumplió un objetivo. Son bienvenidas correcciones, ideas, documentación, pruebas, accesibilidad, traducciones y adaptadores seguros. No hace falta ser experto ni aportar código.
 
-La versión preliminar aún no está publicada. Las siguientes instrucciones describen el proceso propuesto para cuando exista el repositorio público; no afirman que Issues, Pull Requests ni un canal privado estén habilitados.
+El repositorio es público y acepta issues y pull requests. El contenido sigue siendo preliminar: esto no anuncia una release estable ni una integración operativa entre Dots. También podés aportar sin código contando el resultado de la primera prueba del taller descrita en el README. No existe obligación de registrarte ni de informar tu uso.
 
 ## Proponer una mejora o informar un error
 
