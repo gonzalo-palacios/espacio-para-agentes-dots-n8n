@@ -22,8 +22,15 @@ function extractOffers(input) {
       if (![ ].concat(o['@type'] || []).includes('Offer')) { warnings.push('tipo_oferta_no_soportado'); continue; }
       const offerUrl = safeUrl(o.url);
       const productUrl = safeUrl(p.url) || safeUrl(p['@id']);
-      const sameProduct = (a,b) => { const x=parseProvenanceUrl(a), y=parseProvenanceUrl(b); return x.hostname.replace(/^www\./,'') === y.hostname.replace(/^www\./,'') && x.pathname.replace(/\/$/,'') === y.pathname.replace(/\/$/,''); };
-      if ([offerUrl,productUrl].filter(Boolean).some(url => !sameProduct(url, source))) { warnings.push('producto_relacionado_excluido'); continue; }
+      const sourceIdentity = parseProvenanceUrl(source);
+      const declared = [offerUrl,productUrl].filter(Boolean);
+      const samePage = x => x.hostname.replace(/^www\./,'') === sourceIdentity.hostname.replace(/^www\./,'') &&
+        x.pathname.replace(/\/$/,'') === sourceIdentity.pathname.replace(/\/$/,'');
+      // Compare selectors conservatively: no guessed tracking parameters or variant names.
+      if (declared.some(url => { const x = parseProvenanceUrl(url); return !samePage(x) || (x.query && x.query !== sourceIdentity.query); })) {
+        warnings.push('producto_relacionado_excluido'); continue;
+      }
+      const confirmedUrl = declared.find(url => parseProvenanceUrl(url).query === sourceIdentity.query) || null;
       // Schema.org price uses a decimal point. Locale-formatted display prices are ambiguous.
       const raw = o.price;
       const amount = (typeof raw === 'number' || typeof raw === 'string' && /^\d+(\.\d+)?$/.test(raw)) ? Number(raw) : null;
@@ -32,14 +39,15 @@ function extractOffers(input) {
       const availabilityRaw = typeof o.availability === 'string' ? o.availability : null;
       const availability = /^https?:\/\/schema\.org\/(InStock|OutOfStock|SoldOut|PreOrder|PreSale|BackOrder|Discontinued|LimitedAvailability|OnlineOnly|InStoreOnly)$/.test(availabilityRaw || '') ? availabilityRaw : null;
       const missing = [];
-      if (!offerUrl && !productUrl) missing.push('identidad_de_ficha_sin_url');
+      if (!declared.length) missing.push('identidad_de_ficha_sin_url');
+      else if (!confirmedUrl) missing.push('identidad_de_variante_sin_confirmar');
       if (price === null) missing.push('precio_contado_no_verificado');
       if (!currency) missing.push('moneda');
       if (!availability) missing.push('stock');
       offers.push({ product: typeof p.name === 'string' ? p.name : null, sku: typeof p.sku === 'string' ? p.sku : null,
         seller: typeof o.seller?.name === 'string' ? o.seller.name : null,
         price, priceRaw: raw ?? null, currency, availability, availabilityRaw,
-        offerUrl: offerUrl || productUrl || null, identityStatus: offerUrl || productUrl ? 'url_matches_page' : 'unknown', sourceUrl: source, observedAt: input.observedAt,
+        offerUrl: confirmedUrl || offerUrl || productUrl || null, identityStatus: confirmedUrl ? 'url_matches_page' : 'unknown', sourceUrl: source, observedAt: input.observedAt,
         evidence: {type:'publisher_json_ld', independentlyVerified:false},
         missing: [...missing,'variante_y_condiciones_de_pago','envio_e_impuestos','requisitos_tecnicos'],
         status:'human_review_required', purchaseApproved:false });
@@ -58,8 +66,11 @@ function parseProvenanceUrl(value) {
   if (!/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(host) ||
       /(^|\.)(localhost|local|internal|test|invalid)$/.test(host)) return null;
   const tail = m[2] || '/';
-  const pathname = tail.split(/[?#]/)[0] || '/';
-  return {hostname:host,pathname,href:'https://'+host+(tail.startsWith('/') ? tail : '/'+tail)};
+  const beforeFragment = tail.split('#',1)[0];
+  const question = beforeFragment.indexOf('?');
+  const pathname = (question < 0 ? beforeFragment : beforeFragment.slice(0,question)) || '/';
+  const query = question < 0 ? '' : beforeFragment.slice(question);
+  return {hostname:host,pathname,query,href:'https://'+host+(tail.startsWith('/') ? tail : '/'+tail)};
 }
 function safeUrl(value) { return parseProvenanceUrl(value)?.href || null; }
 module.exports = {extractOffers};
