@@ -2,16 +2,31 @@
 
 Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza y límites](GOVERNANCE.md).
 
-## Convocatoria internacional / International call
+## Empezá por algo útil: una nota → una lista
 
-Buscamos colaboradores para investigar una mensajería privada y consentida entre Dots de distintos usuarios. **Es una propuesta, no una integración entre cuentas ya disponible.** Participá con ideas, pruebas o traducciones en la [convocatoria multilingüe](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1), con resúmenes iniciales en 10 idiomas y comentarios bienvenidos en cualquier idioma.
+**Prueba de unos 2 minutos en una computadora.** No necesitás cuenta de ChatGPT, Dots, n8n, Node.js ni claves API para esta ruta.
 
-We welcome contributors to research privacy-first, owner-authorized messaging between different users’ Dots. This is a proposal, not a working cross-account integration. Join the [multilingual call for collaborators](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1).
+**[⬇ Descargar taller local (ZIP · versión preliminar)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/taller-v0.1.0-pre/taller-local-v0.1.0-pre.zip)**
 
-## Nuevo: taller local útil
+1. Descargá el taller con el enlace anterior y descomprimí el ZIP completo; no abras el HTML dentro del archivo comprimido.
+2. Abrí **`taller-local/tasks.html`** con tu navegador. Conservá los archivos vecinos `tasks-core.js` y `tasks-ui.js`. El ZIP incluye instrucciones y licencia.
+3. Pegá este ejemplo ficticio y pulsá **Crear lista**:
 
-Abrí `desktop/tasks.html` (o `http://127.0.0.1:8080/tasks.html` con `npm start`) para convertir una nota en tareas, editar responsables/plazos, marcar avances y descargar Markdown o JSON. Procesamiento determinista local, sin IA ni red. [Guía y límites](docs/TALLER-LOCAL.md). El escritorio de agentes y los ejemplos n8n continúan separados.
+   `Comprar papel; Revisar presupuesto`
 
+4. Deberías ver **dos tareas**, con responsable y plazo vacíos. Completá esos campos si querés, marcá una tarea y pulsá **Descargar Markdown**. Abrí el archivo descargado: la tarea marcada debe aparecer con `[x]`.
+
+**Resultado:** una lista que podés editar y llevar a tu editor de notas. No se ejecutan las tareas ni se contacta a nadie. El procesamiento es local y determinista, sin IA ni telemetría. **Al cerrar o recargar se pierde la lista: descargala antes.** Usá datos ficticios en esta primera prueba.
+
+Si ves el código en vez de la página, abrí el archivo con un navegador. Si los botones no responden, comprobá que descomprimiste toda la carpeta; la [guía del taller](docs/TALLER-LOCAL.md) también ofrece un servidor local opcional. Verificado en navegador de escritorio cloud, sirviendo localmente el ZIP exacto descomprimido: se crearon las dos tareas, se marcó una y el Markdown descargado conservó exactamente `[x]` y `[ ]`. No se probó en Windows ni abriendo con `file://`; no prometemos compatibilidad universal.
+
+### ¿Te sirvió? Contarlo es opcional
+
+No registramos quién descarga ni usa el taller. Si querés ayudar, [contanos el resultado en un issue](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/new?title=Primera%20prueba%20del%20taller), con tres datos: **qué esperabas, si lograste descargar la lista y dónde te trabaste**. Agregá navegador/sistema si hubo un error. Publicar un issue requiere cuenta de GitHub; usar el taller no.
+
+Antes, revisá [issues existentes](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues). El comentario será público: no adjuntes notas reales, datos personales, claves ni archivos exportados con información privada. No hace falta enviar capturas ni demostrar una descarga.
+
+## Después: explorá la demo de agentes
 
 Una primera contribución para quienes quieren **entender y organizar un equipo de agentes** sin empezar entregando credenciales. Escritorio educativo inspirado en interfaces clásicas, con dos ejemplos de n8n ejecutados manualmente y sin IA ni servicios pagos.
 
@@ -21,10 +36,10 @@ Una primera contribución para quienes quieren **entender y organizar un equipo 
 
 Desde el escritorio, abrí **Explorar mapa 3D de ejemplo**. Rotá, acercá, buscá nodos y recorré sus relaciones. Incluye vista 2D y lista textual alternativa. Son datos ficticios, no una conexión a Obsidian ni a agentes reales. [Guía](docs/MAPA-3D.md).
 
-## Probalo en un minuto
+## Recorrido simulado del escritorio (opcional)
 
-1. Descomprimí el paquete.
-2. Abrí `desktop/index.html` con tu navegador.
+1. Para el escritorio completo, usá **Code → Download ZIP** en este repositorio y descomprimilo. Es una descarga distinta del taller independiente.
+2. Abrí `desktop/index.html` de esa carpeta con tu navegador.
 3. Abrí **Conexiones → Simular recorrido**. No salen pedidos reales ni se usan APIs.
 
 No hace falta instalar nada para esta demo. Para servirla localmente, con Node.js 22 o superior instalado:
@@ -77,6 +92,13 @@ npm test
 ```
 
 Suite base de 44 comprobaciones, más pruebas del taller local, rutas, mapa e integración, sin descargar paquetes: lógica de notas, validación, saltos, duplicados del lote, estructura y seguridad de workflows, sintaxis y navegación con DOM simulado. Ver [docs/VALIDACION.md](docs/VALIDACION.md) para límites y pruebas manuales pendientes.
+
+## Convocatoria internacional / International call
+
+Buscamos colaboradores para investigar una mensajería privada y consentida entre Dots de distintos usuarios. **Es una propuesta, no una integración entre cuentas ya disponible.** Participá con ideas, pruebas o traducciones en la [convocatoria multilingüe](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1), con resúmenes iniciales en 10 idiomas y comentarios bienvenidos en cualquier idioma.
+
+We welcome contributors to research privacy-first, owner-authorized messaging between different users’ Dots. This is a proposal, not a working cross-account integration. Join the [multilingual call for collaborators](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1).
+
 
 ## Contribuir
 
