@@ -36,6 +36,15 @@ Una primera contribución para quienes quieren **entender y organizar un equipo 
 
 Desde el escritorio, abrí **Explorar mapa 3D de ejemplo**. Rotá, acercá, buscá nodos y recorré sus relaciones. Incluye vista 2D y lista textual alternativa. Son datos ficticios, no una conexión a Obsidian ni a agentes reales. [Guía](docs/MAPA-3D.md).
 
+## Probá Galaxia Aurora v2
+
+**[⬇ Descargar Galaxia Aurora v2 (ZIP · versión preliminar)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/galaxia-aurora-v2-pre/galaxia-aurora-v2.zip)**
+
+1. Descomprimí el ZIP completo y abrí el `index.html` de la carpeta extraída en tu navegador.
+2. Seleccioná una luna para abrir su informe ficticio. Es una demo independiente: no requiere cuenta, n8n ni conexión a Internet.
+
+Si querés ayudar, [contanos en Issues](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues) si abrió y qué navegador usaste. Es opcional y público: no adjuntes datos personales ni credenciales.
+
 ## Recorrido simulado del escritorio (opcional)
 
 1. Para el escritorio completo, usá **Code → Download ZIP** en este repositorio y descomprimilo. Es una descarga distinta del taller independiente.
