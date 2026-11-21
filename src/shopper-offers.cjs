@@ -6,6 +6,9 @@ function extractOffers(input) {
   if (!source) throw new Error('sourceUrl debe ser URL HTTPS admitida sin credenciales (sin verificacion DNS)');
   if (typeof input.observedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(input.observedAt) || !Number.isFinite(Date.parse(input.observedAt))) throw new Error('observedAt ISO requerido');
   const warnings = [], products = [], offers = [];
+  const sourceIdentity = parseProvenanceUrl(source);
+  if (!sourceIdentity.queryUnambiguous) return { status:'no_supported_offers', offers,
+    warnings:['selector_de_fuente_ambiguo'],purchaseApproved:false,total:null,ranking:null,modelInvoked:false };
   const blocks = [...input.html.replace(/<!--[\s\S]*?-->/g, '').matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)].filter(m => /(?:^|\s)type\s*=\s*["']application\/ld\+json["']/i.test(m[1]));
   if (blocks.length > 100) throw new Error('demasiados bloques JSON-LD');
   function visit(x, depth = 0) {
@@ -22,15 +25,13 @@ function extractOffers(input) {
       if (![ ].concat(o['@type'] || []).includes('Offer')) { warnings.push('tipo_oferta_no_soportado'); continue; }
       const offerUrl = safeUrl(o.url);
       const productUrl = safeUrl(p.url) || safeUrl(p['@id']);
-      const sourceIdentity = parseProvenanceUrl(source);
-      const declared = [offerUrl,productUrl].filter(Boolean);
-      const samePage = x => x.hostname.replace(/^www\./,'') === sourceIdentity.hostname.replace(/^www\./,'') &&
-        x.pathname.replace(/\/$/,'') === sourceIdentity.pathname.replace(/\/$/,'');
-      // Compare selectors conservatively: no guessed tracking parameters or variant names.
-      if (declared.some(url => { const x = parseProvenanceUrl(url); return !samePage(x) || (x.query && x.query !== sourceIdentity.query); })) {
+      const declared = [offerUrl,productUrl].filter(Boolean).map(parseProvenanceUrl);
+      if (declared.some(x => !x.queryUnambiguous)) { warnings.push('selector_de_oferta_ambiguo'); continue; }
+      // Compare raw, unique selectors exactly; never guess tracking or order equivalence.
+      if (declared.some(x => !sameProvenancePage(x,sourceIdentity) || (x.query && x.query !== sourceIdentity.query))) {
         warnings.push('producto_relacionado_excluido'); continue;
       }
-      const confirmedUrl = declared.find(url => parseProvenanceUrl(url).query === sourceIdentity.query) || null;
+      const confirmedUrl = declared.find(x => x.query === sourceIdentity.query)?.href || null;
       // Schema.org price uses a decimal point. Locale-formatted display prices are ambiguous.
       const raw = o.price;
       const amount = (typeof raw === 'number' || typeof raw === 'string' && /^\d+(\.\d+)?$/.test(raw)) ? Number(raw) : null;
@@ -70,7 +71,27 @@ function parseProvenanceUrl(value) {
   const question = beforeFragment.indexOf('?');
   const pathname = (question < 0 ? beforeFragment : beforeFragment.slice(0,question)) || '/';
   const query = question < 0 ? '' : beforeFragment.slice(question);
-  return {hostname:host,pathname,query,href:'https://'+host+(tail.startsWith('/') ? tail : '/'+tail)};
+  return {hostname:host,pathname,query,queryUnambiguous:isUnambiguousQuery(query),href:'https://'+host+(tail.startsWith('/') ? tail : '/'+tail)};
 }
 function safeUrl(value) { return parseProvenanceUrl(value)?.href || null; }
-module.exports = {extractOffers};
+function sameProvenancePage(x,y) {
+  return x.hostname.replace(/^www\./,'') === y.hostname.replace(/^www\./,'') &&
+    x.pathname.replace(/\/$/,'') === y.pathname.replace(/\/$/,'');
+}
+function isUnambiguousQuery(query) {
+  if (!query) return true;
+  if (query.length > 2048 || /[+;]/.test(query)) return false;
+  const keys = new Set();
+  for (const pair of query.slice(1).split('&')) {
+    const eq = pair.indexOf('=');
+    if (eq < 1) return false;
+    try {
+      const key = decodeURIComponent(pair.slice(0,eq)).toLowerCase();
+      const value = decodeURIComponent(pair.slice(eq+1));
+      if (!/^[a-z0-9_.~-]+$/.test(key) || keys.has(key) || !value.trim() || /[&;#%+\x00-\x1f\x7f]/.test(value)) return false;
+      keys.add(key);
+    } catch { return false; }
+  }
+  return true;
+}
+module.exports = {extractOffers,parseProvenanceUrl,sameProvenancePage};
