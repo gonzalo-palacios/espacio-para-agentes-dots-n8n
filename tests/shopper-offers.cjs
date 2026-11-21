@@ -28,6 +28,31 @@ test('excluye productos relacionados de otra URL',()=>{const r=extractOffers(wra
 test('Product.url relacionado sin Offer.url no se atribuye',()=>{assert.equal(extractOffers(wrap({...product,url:'https://shop.example.org/other',offers:{...offer,url:undefined}})).offers.length,0);});
 test('sin URL de producto/oferta identidad desconocida',()=>{const o=extractOffers(wrap({...product,offers:{...offer,url:undefined}})).offers[0];assert.equal(o.offerUrl,null);assert.equal(o.identityStatus,'unknown');assert.ok(o.missing.includes('identidad_de_ficha_sin_url'));});
 test('rechaza IP abreviada y controles sin global URL',()=>{for(const sourceUrl of ['https://127.1','https://0x7f000001','https://shop.example.org\\\\@127.0.0.1','https://shop.example.org\n'])assert.throws(()=>extractOffers({...wrap(product),sourceUrl}));});
+test('carrito compartido no acredita stock ni condicion de pago para la variante',()=>{
+  const cart='<aside>Tu carrito está vacío. Este producto no tiene stock.</aside>';
+  const payments='<section>Base ARS 120000 · transferencia ARS 96000 · efectivo en salón ARS 90000 · 3 cuotas de ARS 40000 · envío aparte</section>';
+  // Futuro lector de texto visible: solo evidencia local al artículo/variante;
+  // separar base, transferencia, salón, cuotas (cantidad/importe) y flete.
+  const control=extractOffers({...wrap({}),sourceUrl:'https://shop.example.org/contacto',html:'<main>Contacto</main>'+cart+payments});
+  assert.deepEqual(control.offers,[]);
+  for (const availability of [undefined,'https://schema.org/InStock']) {
+    const page=wrap({...product,name:'Perfume ficticio 100 ml',sku:'DEMO-100',offers:{...offer,price:'120000',availability}});
+    const r=extractOffers({...page,html:page.html+'<main>Perfume ficticio 100 ml</main>'+cart+payments});
+    assert.equal(r.offers.length,1);
+    const item=r.offers[0];
+    assert.equal(item.sku,'DEMO-100');
+    assert.equal(item.price,120000);
+    assert.equal(item.currency,'ARS');
+    assert.equal(item.availability,availability ?? null);
+    assert.equal(item.missing.includes('stock'),!availability);
+    assert.equal(item.evidence.independentlyVerified,false);
+    assert.ok(item.missing.includes('variante_y_condiciones_de_pago'));
+    assert.ok(item.missing.includes('envio_e_impuestos'));
+    assert.equal(r.total,null);
+    assert.equal(r.ranking,null);
+    assert.equal(r.purchaseApproved,false);
+  }
+});
 const wf=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../workflows/03-compras-evidencia-offline.json'),'utf8'));
 test('plantilla inactiva sin red ni secretos ni modelo',()=>{assert.equal(wf.active,false);assert.ok(wf.nodes.every(n=>['n8n-nodes-base.manualTrigger','n8n-nodes-base.executeWorkflowTrigger','n8n-nodes-base.code'].includes(n.type)));assert.ok(wf.nodes.every(n=>!n.credentials));});
 test('ejemplo y nodo exactos ejecutados aislados',()=>{const example=wf.nodes.find(n=>n.name==='Ejemplo ficticio').parameters.jsCode;const code=wf.nodes.find(n=>n.name==='Extraer evidencia').parameters.jsCode;const items=vm.runInNewContext('(function(){'+example+'})()',{}, {timeout:1000});const result=vm.runInNewContext('(function(){'+code+'})()',{$input:{all:()=>items}}, {timeout:1000});assert.equal(result[0].json.offers.length,1);assert.equal(result[0].json.purchaseApproved,false);assert.equal(result[0].json.offers[0].currency,'ARS');});
