@@ -4,9 +4,12 @@
   "private": true,
   "description": "Espacio para Agentes Dots+N8N \u00b7 plantilla educativa local",
   "scripts": {
-    "test": "node tests/run.cjs && node tests/tasks.cjs && node tests/routes.cjs && node tests/map3d.cjs && node tests/integration.cjs && node tests/local-bridge.cjs && node tests/local-bridge-http.cjs && node tests/appearance.cjs",
+    "test": "node tests/run.cjs && node tests/tasks.cjs && node tests/routes.cjs && node tests/map3d.cjs && node tests/integration.cjs && node tests/local-bridge.cjs && node tests/local-bridge-http.cjs && node tests/appearance.cjs && node tests/connection.cjs",
     "start": "node src/serve.cjs",
-    "n8n:preview": "node src/local-bridge.cjs"
+    "n8n:preview": "node src/local-bridge.cjs",
+    "n8n:setup": "node src/local-stack.cjs setup",
+    "n8n:test": "node src/local-stack.cjs test",
+    "start:connected": "node src/local-stack.cjs start"
   },
   "engines": {
     "node": ">=22"

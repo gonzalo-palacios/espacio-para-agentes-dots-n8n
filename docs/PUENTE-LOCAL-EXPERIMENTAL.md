@@ -1,5 +1,7 @@
 # Puente local experimental hacia n8n
 
+**Actualización 22/11/2026:** el nuevo modo conectado ya fue validado de extremo a extremo con n8n 2.14.2 local. Ver [CONEXION-LOCAL.md](CONEXION-LOCAL.md). Esta guía conserva el procedimiento experimental anterior por consola y URL de prueba; no confundirlo con el iniciador `INICIAR_CON_N8N.cmd`, que usa una instancia dedicada, webhook publicado solo en loopback y límite de 20 segundos.
+
 Primer cliente HTTP real, **no una integración validada en n8n todavía**. No conecta el escritorio a agentes ni añade IA. Está separado de los dos workflows manuales existentes.
 
 ## Diseño

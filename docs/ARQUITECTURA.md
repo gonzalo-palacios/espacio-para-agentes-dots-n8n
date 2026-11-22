@@ -1,5 +1,7 @@
 # De la demo a una integración real
 
+**Actualización local 22/11/2026:** existe una integración acotada NOD → n8n → NOD, activada con `INICIAR_CON_N8N.cmd` y limitada a dos tareas ficticias. Ver [CONEXION-LOCAL.md](CONEXION-LOCAL.md). No implementa todavía la arquitectura general de agentes descrita abajo.
+
 ## Incluido
 
 Navegador → interfaz local sin red.

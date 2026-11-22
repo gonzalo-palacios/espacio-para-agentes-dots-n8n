@@ -2,6 +2,8 @@
 
 Actualizado: **22 de noviembre de 2026** · Propietario: **Gonzalo Palacios**.
 
+**Estado vigente:** código incorporado y conexión local NOD → n8n → NOD verificada. Consultar la sección 12; los pendientes de integración de las etapas anteriores se conservan como historial y quedan actualizados allí.
+
 Este es el documento de referencia único de este proyecto local. Consolida documentación, versiones publicadas y trabajo pendiente encontrado en el GitHub de `gonzalo-palacios`. No se encontró un brief maestro preexistente específico de NOD: este documento se elaboró a partir de las fuentes enlazadas al final.
 
 ## 1. Identidad y propósito
@@ -199,3 +201,25 @@ El servidor estático respondió en una ejecución de diagnóstico autocontenida
 **Agentes operativos:** falta desarrollar la integración escritorio → backend autorizado → n8n → adaptadores. No se resuelve instalando dependencias: el código actual no implementa esa conexión. Tampoco incluye IA, voz ni mensajería entre Dots de distintas cuentas.
 
 **Otros módulos:** Shopper y mejoras del mapa permanecen en PR; Aurora es un ZIP de release separado. Su incorporación requeriría una etapa propia de revisión y validación.
+
+## 12. Conexión local NOD + n8n comprobada — 22/11/2026
+
+**Resultado:** NOD ya puede invocar n8n local y mostrar su respuesta desde `desktop/connection.html`. Se comprobó el recorrido HTTP completo y después se pulsó el botón en Chrome real: la pantalla mostró «Conexión comprobada: n8n procesó y devolvió las dos tareas», con `Comprar papel` y `Revisar inventario`.
+
+Esta sección actualiza los pendientes de integración y validación visual de la sección 11 para este alcance concreto. No convierte en funcionales los módulos futuros de agentes, Shopper o mensajería entre cuentas.
+
+- Inicio: `INICIAR_CON_N8N.cmd` o `npm run start:connected`.
+- Dirección: `http://127.0.0.1:8080/connection.html`, accesible desde el escritorio.
+- n8n 2.14.2 en 5679 y broker JavaScript en 5680, ambos configurados en loopback.
+- Datos y configuración exclusivos del proyecto: `private/n8n-local/`, ignorados por Git. No se modificó la instancia habitual ni el VPS.
+- Solo se publica en el laboratorio el workflow de dos tareas ficticias. Los ejemplos de notas y enrutamiento permanecen manuales.
+- La API de NOD controla Host, Origin, token temporal, tamaño, contenido fijo, concurrencia y repetición. El timeout conectado es de 20 s, sin reintentos, y la respuesta está limitada a 16 KiB.
+- No se envían notas del taller, no se llama a un modelo ni se realizan compras o acciones externas.
+
+**Pruebas:** suite automatizada completa aprobada; tres workflows importados en n8n real; notas con tres items correctos; enrutamiento con resultado simulado/bloqueado; respuesta correcta NOD → n8n → NOD; comprobación de la pantalla en Chrome. Evidencia local saneada: `private/n8n-local/integration-result.json` y `conexion-verificada.jpg`. La revisión visual exhaustiva del taller/mapa, móvil y accesibilidad sigue pendiente.
+
+**Correcciones derivadas de la ejecución real:** se añadió el `webhookId` faltante para registrar la URL esperada y se ajustó el timeout del modo conectado después de confirmar una ejecución exitosa de unos 6,5 s que superaba el límite anterior. No se repitieron solicitudes automáticamente.
+
+**Uso posterior:** conservar abierta la consola del iniciador; Ctrl+C detiene los servicios creados por él. `npm run n8n:test`, con los servicios anteriores detenidos, repite las pruebas en n8n real. El arranque puede tardar varios minutos. No se instaló el runner Python porque los workflows son JavaScript y funcionan sin él.
+
+Guía operativa y límites completos: [docs/CONEXION-LOCAL.md](docs/CONEXION-LOCAL.md). El código, las pruebas y la documentación de esta etapa se mantienen en el repositorio oficial. La base de n8n, sus claves, logs y evidencias privadas permanecen excluidos de Git.

@@ -8,6 +8,10 @@ Contiene propósito, componentes existentes, arquitectura, releases, propuestas 
 
 ## Abrir en Windows
 
+**Con n8n conectado:** abrí `INICIAR_CON_N8N.cmd`, esperá el mensaje «NOD conectado» y entrá a http://127.0.0.1:8080/connection.html. Pulsá **Enviar prueba a n8n**. Deben aparecer «Comprar papel» y «Revisar inventario», procesadas por n8n real. La primera preparación puede tardar varios minutos. Conservá la consola abierta; Ctrl+C detiene ambos servicios.
+
+**Solo demo, sin n8n:**
+
 Hacé doble clic en `INICIAR.cmd`, mantené esa ventana abierta y entrá a http://127.0.0.1:8080. Para detenerlo, presioná Ctrl+C en esa ventana.
 
 También podés abrir directamente [el escritorio](desktop/index.html), [el taller](desktop/tasks.html) o [el mapa](desktop/map3d/index.html), sin servidor.
@@ -31,7 +35,15 @@ La suite pasó en este Windows el 22/11/2026. El segundo comando solo muestra un
 
 ## Estado local
 
-El escritorio, taller y mapa están disponibles. La conexión real a n8n sigue pendiente; tener n8n instalado no conecta automáticamente la demo. El diagnóstico y los siguientes pasos están en la sección 11 del brief.
+El escritorio, taller y mapa están disponibles. La conexión local a n8n **ya se comprobó con n8n 2.14.2**: importación, ejecución de los dos ejemplos y recorrido HTTP completo desde NOD. Usa una base separada en `private/n8n-local/`, excluida de Git, y puertos de loopback 5679/5680; NOD usa 8080. No toca la instancia habitual ni el VPS.
+
+La pantalla de conexión envía únicamente dos tareas ficticias; no envía notas del taller, no conecta agentes ni usa IA. El diagnóstico actualizado está en la sección 12 del brief y en [la guía de conexión](docs/CONEXION-LOCAL.md).
+
+```powershell
+npm run start:connected
+# Con los servicios detenidos, para repetir todas las pruebas en n8n real:
+npm run n8n:test
+```
 
 Origen: [Espacio para Agentes Dots+N8N](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n), commit `8483eaef155882edfb70775bd18b282c42470866`. Los 48 archivos importados están registrados en [ORIGEN_CODIGO.json](docs/ORIGEN_CODIGO.json). El README original se conserva en `docs/README_ORIGINAL.md`; sus enlaces relativos están escritos para la raíz del repositorio de origen.
 
