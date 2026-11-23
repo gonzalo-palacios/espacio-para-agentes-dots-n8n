@@ -1,0 +1,248 @@
+{
+  "repository": "https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n",
+  "branch": "main",
+  "commit": "8483eaef155882edfb70775bd18b282c42470866",
+  "importedAt": "2026-11-22",
+  "files": [
+    {
+      "source": ".env.example",
+      "local": ".env.example",
+      "gitBlobSha": "470d526e459906c578be3ccf8e66617fa497fe1d"
+    },
+    {
+      "source": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "local": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "gitBlobSha": "f943c6e5ddf747f4ecfe29ac4be41778b712207e"
+    },
+    {
+      "source": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "local": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "gitBlobSha": "40878495600b1e602be17fe71817d6806eda4f54"
+    },
+    {
+      "source": ".github/PULL_REQUEST_TEMPLATE.md",
+      "local": ".github/PULL_REQUEST_TEMPLATE.md",
+      "gitBlobSha": "ce0490f6133942d7c9d7bb2dd6f268ef41a29629"
+    },
+    {
+      "source": ".gitignore",
+      "local": ".gitignore",
+      "gitBlobSha": "d78e24b1f5caafc82c43d1e14281d5fa5124b9fc"
+    },
+    {
+      "source": "CODE_OF_CONDUCT.md",
+      "local": "CODE_OF_CONDUCT.md",
+      "gitBlobSha": "f63d3b183a74e353fe9b7af645acf65b914a667d"
+    },
+    {
+      "source": "CONTRIBUTING.md",
+      "local": "CONTRIBUTING.md",
+      "gitBlobSha": "b9a2662b236f37f22a16a62b6f3524f6586e342a"
+    },
+    {
+      "source": "GOVERNANCE.md",
+      "local": "GOVERNANCE.md",
+      "gitBlobSha": "7c32b4e58bbc33fc4ac166dd43d9f943b3942c65"
+    },
+    {
+      "source": "LICENSE",
+      "local": "LICENSE",
+      "gitBlobSha": "c2b6cccc233d48f8479584d13f3c58f535d5710c"
+    },
+    {
+      "source": "README.md",
+      "local": "docs/README_ORIGINAL.md",
+      "gitBlobSha": "cbb38848722ee763b4ad567d5dc81877e4f32aa5"
+    },
+    {
+      "source": "ROADMAP.md",
+      "local": "ROADMAP.md",
+      "gitBlobSha": "025381e07a0c4e3002b4a41fcc1515fd35448448"
+    },
+    {
+      "source": "SECURITY.md",
+      "local": "SECURITY.md",
+      "gitBlobSha": "f877056dd9d3390e4440bfcefee17dce06016ee2"
+    },
+    {
+      "source": "THIRD_PARTY_NOTICES.md",
+      "local": "THIRD_PARTY_NOTICES.md",
+      "gitBlobSha": "e392745ce8c4b4158079fb097b21b862704739b2"
+    },
+    {
+      "source": "config/agents.example.json",
+      "local": "config/agents.example.json",
+      "gitBlobSha": "970b6f0f5bcfcd5f30dc817f70e5e00477dc465f"
+    },
+    {
+      "source": "desktop/appearance-core.js",
+      "local": "desktop/appearance-core.js",
+      "gitBlobSha": "cf1a72c185b9435e366a633bc21f6a8edb322655"
+    },
+    {
+      "source": "desktop/appearance-ui.js",
+      "local": "desktop/appearance-ui.js",
+      "gitBlobSha": "c6958d96d6d8c1f558060241ee5c3ef8814181be"
+    },
+    {
+      "source": "desktop/appearance.css",
+      "local": "desktop/appearance.css",
+      "gitBlobSha": "caf06ee243d030bd12297abe30d26ad5d18354fd"
+    },
+    {
+      "source": "desktop/index.html",
+      "local": "desktop/index.html",
+      "gitBlobSha": "f98b41a80ed2bbc422bbfae83980310d1a1fb649"
+    },
+    {
+      "source": "desktop/map3d/graph.js",
+      "local": "desktop/map3d/graph.js",
+      "gitBlobSha": "f1f875d27e26c9b15e420b55d2bd02a492e23fef"
+    },
+    {
+      "source": "desktop/map3d/index.html",
+      "local": "desktop/map3d/index.html",
+      "gitBlobSha": "69d1986e41d000a607e3fa98c88c9ec63f7a2120"
+    },
+    {
+      "source": "desktop/map3d/view.js",
+      "local": "desktop/map3d/view.js",
+      "gitBlobSha": "554c7e9ecf9eae39c6f9417e7754af058a26cd24"
+    },
+    {
+      "source": "desktop/tasks-core.js",
+      "local": "desktop/tasks-core.js",
+      "gitBlobSha": "78065c79dda6ab4099e222c83a033a64454e3dec"
+    },
+    {
+      "source": "desktop/tasks-ui.js",
+      "local": "desktop/tasks-ui.js",
+      "gitBlobSha": "8b50180b96a2bc607283b38859d0d9b2539342f8"
+    },
+    {
+      "source": "desktop/tasks.html",
+      "local": "desktop/tasks.html",
+      "gitBlobSha": "aa1411760ee07ef26686dbfb92ac3ef71409debc"
+    },
+    {
+      "source": "docs/APARIENCIA.md",
+      "local": "docs/APARIENCIA.md",
+      "gitBlobSha": "1eb100408c2da5463c5f0b597c66d2ed84513059"
+    },
+    {
+      "source": "docs/ARQUITECTURA.md",
+      "local": "docs/ARQUITECTURA.md",
+      "gitBlobSha": "b47229304b6e0928d7e67dfc07a067af952de0ff"
+    },
+    {
+      "source": "docs/MAPA-3D.md",
+      "local": "docs/MAPA-3D.md",
+      "gitBlobSha": "360f385b197c6010fc67e10cbe5525689befe727"
+    },
+    {
+      "source": "docs/N8N.md",
+      "local": "docs/N8N.md",
+      "gitBlobSha": "ebb282ba7ae86395731c1017e19047bbb084979f"
+    },
+    {
+      "source": "docs/PUENTE-LOCAL-EXPERIMENTAL.md",
+      "local": "docs/PUENTE-LOCAL-EXPERIMENTAL.md",
+      "gitBlobSha": "204121e8a4c4c37ce4f54917499416a3eb763d7d"
+    },
+    {
+      "source": "docs/TALLER-LOCAL.md",
+      "local": "docs/TALLER-LOCAL.md",
+      "gitBlobSha": "8984e90214767888c58ba4aca1485d53ffa34e71"
+    },
+    {
+      "source": "docs/VALIDACION.md",
+      "local": "docs/VALIDACION.md",
+      "gitBlobSha": "9e329d201db616f69104b22ca410dda322389ce5"
+    },
+    {
+      "source": "docs/VOZ.md",
+      "local": "docs/VOZ.md",
+      "gitBlobSha": "fc09fa7c82c6ed7c020b13cc4118a6c02d96fc4d"
+    },
+    {
+      "source": "examples/local-bridge/workflow.json",
+      "local": "examples/local-bridge/workflow.json",
+      "gitBlobSha": "967104f3e31d0dc28f8f8fd0bca75d267a9a3841"
+    },
+    {
+      "source": "package.json",
+      "local": "package.json",
+      "gitBlobSha": "19c488b3b8f13ac074445971cb532edac5abd94b"
+    },
+    {
+      "source": "src/01-notas-a-lista.js",
+      "local": "src/01-notas-a-lista.js",
+      "gitBlobSha": "29e6bd54a57d153b9312292ba0e28ce228153841"
+    },
+    {
+      "source": "src/02-enrutamiento-simulado.js",
+      "local": "src/02-enrutamiento-simulado.js",
+      "gitBlobSha": "8b34ed413f899107ed67f066c0e477d0e2c9a937"
+    },
+    {
+      "source": "src/local-bridge.cjs",
+      "local": "src/local-bridge.cjs",
+      "gitBlobSha": "593a7ce571e6c05509c5d68d8a33504304a3635b"
+    },
+    {
+      "source": "src/serve.cjs",
+      "local": "src/serve.cjs",
+      "gitBlobSha": "a6224333b1bf6eab7b9638392bf9a426cdc04f9f"
+    },
+    {
+      "source": "tests/appearance.cjs",
+      "local": "tests/appearance.cjs",
+      "gitBlobSha": "ea32c821fb07bf3a2299976b22ab96d5d03d4fc2"
+    },
+    {
+      "source": "tests/integration.cjs",
+      "local": "tests/integration.cjs",
+      "gitBlobSha": "1e8174ce0501b77e6d39a8258c372b8cac7b7366"
+    },
+    {
+      "source": "tests/local-bridge-http.cjs",
+      "local": "tests/local-bridge-http.cjs",
+      "gitBlobSha": "e9f913bbbee4718d959a44c04168bad33660a2cf"
+    },
+    {
+      "source": "tests/local-bridge.cjs",
+      "local": "tests/local-bridge.cjs",
+      "gitBlobSha": "fbfac4f41dbb0927598a1b9d6457b08e8b557c86"
+    },
+    {
+      "source": "tests/map3d.cjs",
+      "local": "tests/map3d.cjs",
+      "gitBlobSha": "f3a8f6b6f02b4fb0d0ebc4122a4bf763db0a7a1a"
+    },
+    {
+      "source": "tests/routes.cjs",
+      "local": "tests/routes.cjs",
+      "gitBlobSha": "d862b87bb66eeb371923dcc723b31a1a4ee44330"
+    },
+    {
+      "source": "tests/run.cjs",
+      "local": "tests/run.cjs",
+      "gitBlobSha": "d67f435c69a7c1d084ed081f31952d21337158f4"
+    },
+    {
+      "source": "tests/tasks.cjs",
+      "local": "tests/tasks.cjs",
+      "gitBlobSha": "b3f2d2afc73b5475d495db3e3cc8a932af1df9f7"
+    },
+    {
+      "source": "workflows/01-notas-a-lista.json",
+      "local": "workflows/01-notas-a-lista.json",
+      "gitBlobSha": "ba968c2e13de6ef0995c670aad5e2ce23cfc6e06"
+    },
+    {
+      "source": "workflows/02-enrutamiento-simulado.json",
+      "local": "workflows/02-enrutamiento-simulado.json",
+      "gitBlobSha": "6e74c74b7d206015785518c9cf031d43bde6e574"
+    }
+  ]
+}

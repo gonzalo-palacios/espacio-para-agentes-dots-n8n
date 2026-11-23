@@ -1,13 +1,13 @@
 'use strict';
 // Diagnóstico explícito, sin claves, archivos de entrada ni destinos remotos.
 function payload(){ return {text:'Comprar papel; Revisar inventario',mode:'demo'}; }
-function endpoint(port='5678'){
+function endpoint(port='5678',live=false){
  if(typeof port!=='string'|| !/^[1-9][0-9]{0,4}$/.test(port)||Number(port)>65535) throw new Error('Puerto inválido');
- return `http://127.0.0.1:${port}/webhook-test/dots-community-demo`;
+ return `http://127.0.0.1:${port}/${live?'webhook':'webhook-test'}/dots-community-demo`;
 }
-async function send({confirm=false,port='5678',transport=fetch}={}){
+async function send({confirm=false,port='5678',live=false,transport=fetch}={}){
  if(confirm!==true) throw new Error('Se requiere confirmación explícita');
- const response=await transport(endpoint(port),{method:'POST',redirect:'error',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload()),signal:AbortSignal.timeout(5000)});
+ const response=await transport(endpoint(port,live),{method:'POST',redirect:'error',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload()),signal:AbortSignal.timeout(live?20000:5000)});
  if(!response.ok) throw new Error(`HTTP ${response.status}; no se imprime el cuerpo de error`);
  const reader=response.body.getReader(); let bytes=0,chunks=[];
  try { while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>16384)throw new Error('Respuesta demasiado grande');chunks.push(Buffer.from(value));} }

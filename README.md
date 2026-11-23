@@ -1,122 +1,59 @@
-# Espacio para Agentes Dots+N8N
+# NOD + n8n
 
-Proyecto comunitario gestionado con asistencia de **Dots–Jarvis**. [Gobernanza y límites](GOVERNANCE.md).
+**Proyecto oficial del propietario, confirmado el 22/11/2026.** Esta carpeta es el espacio de trabajo oficial de NOD + n8n. Su repositorio canónico es [gonzalo-palacios/espacio-para-agentes-dots-n8n](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n). Mantener aquí la continuidad del proyecto y un único brief maestro, salvo indicación posterior del propietario.
 
-## Empezá por algo útil: una nota → una lista
+La referencia única de este proyecto es [BRIEF_MAESTRO.md](BRIEF_MAESTRO.md). El código de la rama principal de Dots+n8n ya está incorporado.
 
-**Prueba de unos 2 minutos en una computadora.** No necesitás cuenta de ChatGPT, Dots, n8n, Node.js ni claves API para esta ruta.
+Contiene propósito, componentes existentes, arquitectura, releases, propuestas pendientes, antecedentes de Jarvis/n8n, prioridades y fuentes de GitHub. Consolidado el 22 de noviembre de 2026.
 
-**[⬇ Descargar taller local (ZIP · versión preliminar)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/taller-v0.1.0-pre/taller-local-v0.1.0-pre.zip)**
+## Probá una demo sin instalar nada
 
-1. Descargá el taller con el enlace anterior y descomprimí el ZIP completo; no abras el HTML dentro del archivo comprimido.
-2. Abrí **`taller-local/tasks.html`** con tu navegador. Conservá los archivos vecinos `tasks-core.js` y `tasks-ui.js`. El ZIP incluye instrucciones y licencia.
-3. Pegá este ejemplo ficticio y pulsá **Crear lista**:
+Estas dos descargas preliminares se abren en el navegador de una computadora. No necesitan n8n, Node.js, cuenta ni claves. Descomprimí el ZIP completo antes de abrir el HTML.
 
-   `Comprar papel; Revisar presupuesto`
+- **[Taller local (ZIP)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/taller-v0.1.0-pre/taller-local-v0.1.0-pre.zip)**. Abrí `taller-local/tasks.html`, pegá `Comprar papel; Revisar presupuesto` y pulsá **Crear lista**. Deben aparecer dos tareas. Podés marcar una, pulsar **Descargar Markdown** y comprobar que se exportó con `[x]`. Se probó en un navegador de escritorio sirviendo el ZIP extraído; no se verificó la apertura directa del archivo en Windows.
+- **[Galaxia Aurora v2 (ZIP)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/galaxia-aurora-v2-pre/galaxia-aurora-v2.zip)**. Abrí `index.html` y seleccioná una luna para abrir su informe ficticio.
 
-4. Deberías ver **dos tareas**, con responsable y plazo vacíos. Completá esos campos si querés, marcá una tarea y pulsá **Descargar Markdown**. Abrí el archivo descargado: la tarea marcada debe aparecer con `[x]`.
+Si querés contar cómo te fue, podés indicar si abrió y qué navegador usaste en [Issues](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues), sin adjuntar datos personales.
 
-**Resultado:** una lista que podés editar y llevar a tu editor de notas. No se ejecutan las tareas ni se contacta a nadie. El procesamiento es local y determinista, sin IA ni telemetría. **Al cerrar o recargar se pierde la lista: descargala antes.** Usá datos ficticios en esta primera prueba.
+## Abrir en Windows
 
-Si ves el código en vez de la página, abrí el archivo con un navegador. Si los botones no responden, comprobá que descomprimiste toda la carpeta; la [guía del taller](docs/TALLER-LOCAL.md) también ofrece un servidor local opcional. Verificado en navegador de escritorio cloud, sirviendo localmente el ZIP exacto descomprimido: se crearon las dos tareas, se marcó una y el Markdown descargado conservó exactamente `[x]` y `[ ]`. No se probó en Windows ni abriendo con `file://`; no prometemos compatibilidad universal.
+**Con n8n conectado:** abrí `INICIAR_CON_N8N.cmd`, esperá el mensaje «NOD conectado» y entrá a http://127.0.0.1:8080/connection.html. Pulsá **Enviar prueba a n8n**. Deben aparecer «Comprar papel» y «Revisar inventario», procesadas por n8n real. La primera preparación puede tardar varios minutos. Conservá la consola abierta; Ctrl+C detiene ambos servicios.
 
-### ¿Te sirvió? Contarlo es opcional
+**Solo demo, sin n8n:**
 
-No registramos quién descarga ni usa el taller. Si querés ayudar, [contanos el resultado en un issue](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/new?title=Primera%20prueba%20del%20taller), con tres datos: **qué esperabas, si lograste descargar la lista y dónde te trabaste**. Agregá navegador/sistema si hubo un error. Publicar un issue requiere cuenta de GitHub; usar el taller no.
+Hacé doble clic en `INICIAR.cmd`, mantené esa ventana abierta y entrá a http://127.0.0.1:8080. Para detenerlo, presioná Ctrl+C en esa ventana.
 
-Antes, revisá [issues existentes](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues). El comentario será público: no adjuntes notas reales, datos personales, claves ni archivos exportados con información privada. No hace falta enviar capturas ni demostrar una descarga.
+También podés abrir directamente [el escritorio](desktop/index.html), [el taller](desktop/tasks.html) o [el mapa](desktop/map3d/index.html), sin servidor.
 
-## Después: explorá la demo de agentes
+Desde una terminal en esta carpeta:
 
-Una primera contribución para quienes quieren **entender y organizar un equipo de agentes** sin empezar entregando credenciales. Escritorio educativo inspirado en interfaces clásicas, con dos ejemplos de n8n ejecutados manualmente y sin IA ni servicios pagos.
-
-**v0.2.0-pre · versión preliminar comunitaria.** No es un producto de Microsoft, OpenAI ni n8n. No crea Dots, no los conecta por sí solo y no incluye agentes ya instalados.
-
-## Mapa 3D de ejemplo
-
-Desde el escritorio, abrí **Explorar mapa 3D de ejemplo**. Rotá, acercá, buscá nodos y recorré sus relaciones. Incluye vista 2D y lista textual alternativa. Son datos ficticios, no una conexión a Obsidian ni a agentes reales. [Guía](docs/MAPA-3D.md).
-
-## Probá Galaxia Aurora v2
-
-**[⬇ Descargar Galaxia Aurora v2 (ZIP · versión preliminar)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/galaxia-aurora-v2-pre/galaxia-aurora-v2.zip)**
-
-1. Descomprimí el ZIP completo y abrí el `index.html` de la carpeta extraída en tu navegador.
-2. Seleccioná una luna para abrir su informe ficticio. Es una demo independiente: no requiere cuenta, n8n ni conexión a Internet.
-
-Si querés ayudar, [contanos en Issues](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues) si abrió y qué navegador usaste. Es opcional y público: no adjuntes datos personales ni credenciales.
-
-## Recorrido simulado del escritorio (opcional)
-
-1. Para el escritorio completo, usá **Code → Download ZIP** en este repositorio y descomprimilo. Es una descarga distinta del taller independiente.
-2. Abrí `desktop/index.html` de esa carpeta con tu navegador.
-3. Abrí **Conexiones → Simular recorrido**. No salen pedidos reales ni se usan APIs.
-
-No hace falta instalar nada para esta demo. Para servirla localmente, con Node.js 22 o superior instalado:
-
-```sh
+```powershell
 npm start
 ```
 
-Abrí `http://127.0.0.1:8080`. Cerrá con Ctrl+C. No hay dependencias npm ni hace falta `npm install`. El servidor solo entrega el escritorio y escucha en la propia computadora. No lo expongas a Internet.
+No hace falta `npm install`: no hay dependencias npm. Requiere Node.js 22 o superior; este equipo tiene 24.21.0.
 
-## ¿Qué funciona y qué no?
+## Verificar
 
-| Parte | Estado |
-|---|---|
-| Ocho ventanas, navegación y recorrido de una tarea | Demo interactiva local |
-| Notas a lista | Código funcional determinista; ejemplo JSON para n8n |
-| Validación y enrutamiento | Simulación funcional, nunca envía nada |
-| Conexiones reales, permisos, presupuesto, auditoría | Diseño ilustrativo; no controles operativos |
-| Voz, Ollama y agentes autónomos | Adaptaciones futuras; enlaces y guía incluidos |
-| Dots de ChatGPT | No incluidos ni creados por el paquete |
-
-## Primera utilidad: notas a lista
-
-`workflows/01-notas-a-lista.json` separa una nota por punto y coma o salto de línea. Mantiene cada fragmento literal y deja responsable y fecha en blanco: no adivina intenciones. Por ejemplo, `Comprar papel; Ana confirma presupuesto` genera dos filas para revisar. No crea tareas en servicios externos.
-
-## Segunda utilidad: entender el enrutamiento seguro
-
-`workflows/02-enrutamiento-simulado.json` muestra entradas permitidas/bloqueadas por acción, confirmación ficticia, destino, identificador y número de saltos. Incluye un pedido y una consulta de estado. La consulta no se delega. Los duplicados se detectan **solo dentro del mismo lote**: no es una garantía entre ejecuciones o reinicios.
-
-Un campo `confirmed: true` **no autentica al usuario ni constituye autorización real**. Este ejemplo nunca debe usarse solo para proteger acciones externas.
-
-## Probar en n8n
-
-En una instancia propia de prueba, importá uno de los JSON desde **Import from File**. Revisá los tres nodos: inicio manual, datos ficticios y procesamiento. Ejecutalo manualmente y mirá la salida del último nodo. No requiere credenciales. Los flujos están inactivos y no tienen webhooks, horarios, nodos HTTP ni envío de mensajes. Consultá [docs/N8N.md](docs/N8N.md) y anotá la versión de n8n que pruebes.
-
-**Importación en n8n real aún no verificada en este candidato.** Se comprobó sintaxis, estructura y ejecución del código con una simulación del contrato `$input.all()`. No prometemos compatibilidad universal.
-
-## Personalizar sin riesgos
-
-- Modificá los textos/roles en `desktop/index.html`.
-- `config/agents.example.json` documenta un catálogo de ejemplo: la interfaz todavía no lo carga automáticamente.
-- `.env.example` es referencia documental: la demo no carga variables ni secretos.
-- Seguí [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) antes de conectar un backend.
-- Voz: [docs/VOZ.md](docs/VOZ.md). Ningún motor, voz ni personaje Microsoft viene empaquetado.
-
-## Pruebas
-
-```sh
+```powershell
 npm test
+npm run n8n:preview
 ```
 
-Suite base de 44 comprobaciones, más pruebas del taller local, rutas, mapa e integración, sin descargar paquetes: lógica de notas, validación, saltos, duplicados del lote, estructura y seguridad de workflows, sintaxis y navegación con DOM simulado. Ver [docs/VALIDACION.md](docs/VALIDACION.md) para límites y pruebas manuales pendientes.
+La suite pasó en este Windows el 22/11/2026. El segundo comando solo muestra una vista previa; no envía solicitudes.
 
-## Convocatoria internacional / International call
+## Estado local
 
-Buscamos colaboradores para investigar una mensajería privada y consentida entre Dots de distintos usuarios. **Es una propuesta, no una integración entre cuentas ya disponible.** Participá con ideas, pruebas o traducciones en la [convocatoria multilingüe](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1), con resúmenes iniciales en 10 idiomas y comentarios bienvenidos en cualquier idioma.
+El escritorio, taller y mapa están disponibles. La conexión local a n8n **ya se comprobó con n8n 2.14.2**: importación, ejecución de los dos ejemplos y recorrido HTTP completo desde NOD. Usa una base separada en `private/n8n-local/`, excluida de Git, y puertos de loopback 5679/5680; NOD usa 8080. No toca la instancia habitual ni el VPS.
 
-We welcome contributors to research privacy-first, owner-authorized messaging between different users’ Dots. This is a proposal, not a working cross-account integration. Join the [multilingual call for collaborators](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues/1).
+La pantalla de conexión envía únicamente dos tareas ficticias; no envía notas del taller, no conecta agentes ni usa IA. El diagnóstico actualizado está en la sección 12 del brief y en [la guía de conexión](docs/CONEXION-LOCAL.md).
 
+```powershell
+npm run start:connected
+# Con los servicios detenidos, para repetir todas las pruebas en n8n real:
+npm run n8n:test
+```
 
-## Contribuir
+Origen: [Espacio para Agentes Dots+N8N](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n), commit `8483eaef155882edfb70775bd18b282c42470866`. Los 48 archivos importados están registrados en [ORIGEN_CODIGO.json](docs/ORIGEN_CODIGO.json). El README original se conserva en `docs/README_ORIGINAL.md`; sus enlaces relativos están escritos para la raíz del repositorio de origen.
 
-Buscamos que una persona pueda descargarlo, entenderlo y aportar una mejora pequeña. Ver [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) y [ROADMAP.md](ROADMAP.md). No enviar datos privados, claves ni exports reales con credenciales.
-
-## Licencias
-
-Código propio: MIT, ver [LICENSE](LICENSE). Fondo reemplazado por gradientes CSS originales, sin recursos del escritorio privado. n8n y los proyectos enlazados tienen licencias independientes; no están incluidos ni relicenciados. Ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-## Experimento local opt-in (pendiente de revisión)
-
-Cliente CLI de prueba a n8n con datos ficticios fijos; no afecta el escritorio ni los dos workflows manuales. Ver [guía y límites](docs/PUENTE-LOCAL-EXPERIMENTAL.md). No fue importado aún en n8n real.
+Actualizar el brief existente para mantener una sola referencia. No se importaron las ramas de PR pendientes ni el ZIP separado de Galaxia Aurora.
