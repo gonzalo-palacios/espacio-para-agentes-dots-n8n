@@ -23,7 +23,7 @@ Si querés contar cómo te fue, podés indicar si abrió y qué navegador usaste
 
 Hacé doble clic en `INICIAR.cmd`, mantené esa ventana abierta y entrá a http://127.0.0.1:8080. Para detenerlo, presioná Ctrl+C en esa ventana.
 
-También podés abrir directamente [el escritorio](desktop/index.html), [el taller](desktop/tasks.html) o [el mapa](desktop/map3d/index.html), sin servidor.
+Si ya tenés el repositorio en tu computadora, las rutas locales son `desktop/index.html` (escritorio), `desktop/tasks.html` (taller) y `desktop/map3d/index.html` (mapa). Si llegaste desde GitHub y solo querés probar una demo, usá los ZIP de la sección «Probá una demo sin instalar nada» de arriba.
 
 Desde una terminal en esta carpeta:
 
