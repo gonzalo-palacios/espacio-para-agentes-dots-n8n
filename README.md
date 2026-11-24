@@ -6,6 +6,15 @@ La referencia única de este proyecto es [BRIEF_MAESTRO.md](BRIEF_MAESTRO.md). E
 
 Contiene propósito, componentes existentes, arquitectura, releases, propuestas pendientes, antecedentes de Jarvis/n8n, prioridades y fuentes de GitHub. Consolidado el 22 de noviembre de 2026.
 
+## Probá una demo sin instalar nada
+
+Estas dos descargas preliminares se abren en el navegador de una computadora. No necesitan n8n, Node.js, cuenta ni claves. Descomprimí el ZIP completo antes de abrir el HTML.
+
+- **[Taller local (ZIP)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/taller-v0.1.0-pre/taller-local-v0.1.0-pre.zip)**. Abrí `taller-local/tasks.html`, pegá `Comprar papel; Revisar presupuesto` y pulsá **Crear lista**. Deben aparecer dos tareas. Podés marcar una, pulsar **Descargar Markdown** y comprobar que se exportó con `[x]`. Se probó en un navegador de escritorio sirviendo el ZIP extraído; no se verificó la apertura directa del archivo en Windows.
+- **[Galaxia Aurora v2 (ZIP)](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/releases/download/galaxia-aurora-v2-pre/galaxia-aurora-v2.zip)**. Abrí `index.html` y seleccioná una luna para abrir su informe ficticio.
+
+Si querés contar cómo te fue, podés indicar si abrió y qué navegador usaste en [Issues](https://github.com/gonzalo-palacios/espacio-para-agentes-dots-n8n/issues), sin adjuntar datos personales.
+
 ## Abrir en Windows
 
 **Con n8n conectado:** abrí `INICIAR_CON_N8N.cmd`, esperá el mensaje «NOD conectado» y entrá a http://127.0.0.1:8080/connection.html. Pulsá **Enviar prueba a n8n**. Deben aparecer «Comprar papel» y «Revisar inventario», procesadas por n8n real. La primera preparación puede tardar varios minutos. Conservá la consola abierta; Ctrl+C detiene ambos servicios.
@@ -14,7 +23,7 @@ Contiene propósito, componentes existentes, arquitectura, releases, propuestas 
 
 Hacé doble clic en `INICIAR.cmd`, mantené esa ventana abierta y entrá a http://127.0.0.1:8080. Para detenerlo, presioná Ctrl+C en esa ventana.
 
-También podés abrir directamente [el escritorio](desktop/index.html), [el taller](desktop/tasks.html) o [el mapa](desktop/map3d/index.html), sin servidor.
+Si ya tenés el repositorio en tu computadora, las rutas locales son `desktop/index.html` (escritorio), `desktop/tasks.html` (taller) y `desktop/map3d/index.html` (mapa). Si llegaste desde GitHub y solo querés probar una demo, usá los ZIP de la sección «Probá una demo sin instalar nada» de arriba.
 
 Desde una terminal en esta carpeta:
 
